@@ -1,1 +1,12 @@
-sudo find / -type f -mmin -60 -ls | grep -v '\/proc\/' | grep -v '\/dev\/' | grep -v '\/sys\/' | grep -v '\/oradata\/' | sort -k9,10
+#!/bin/bash
+# $Id$
+#
+# Find all files changed on the server within the last hour.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+find / -type f -mmin -60 -ls | degrep '\/proc\/' | degrep '\/dev\/' | degrep '\/sys\/' | sort -k9,10
