@@ -7,6 +7,6 @@
 # Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
-source /usr/local/bin/bin.bash
+source /usr/local/sbin/sbin.bash
 
 find / -type f -mmin -60 -ls | degrep '\/proc\/' | degrep '\/dev\/' | degrep '\/sys\/' | sort -k9,10
