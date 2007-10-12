@@ -1,0 +1,24 @@
+#!/bin/bash
+# $Id$
+#
+# Locate matching files and display identical files grouped together.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+prehash=''
+
+while read hash_line; do
+    hash=$(echo $hash_line | awk '{ print $1 }')
+    
+    # Insert an empty line when the hashes change (unless this is the first hash).
+    if [ "${hash}" != "${prehash}" ] && [ "${prehash}" != '' ]; then
+        echo
+    fi
+    
+    echo $hash_line | awk '{ print $2 }'
+    prehash=$hash
+done < <(locate -r "$1" | degrep-source-control | xargs -i md5sum {} | sort)

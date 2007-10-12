@@ -1,0 +1,30 @@
+#!/bin/bash
+# $Id$
+#
+# Quickly report the status of all known Subversion projects.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+curdir=''
+topsvndirs=''
+
+# Find the top-level directory for all Subversion project sandboxes.
+for svndir in $(find / -path /proc -prune -o -type d -name '.svn' -printf '%h\n' 2>/dev/null | sort) ; do
+	match=$(expr "${svndir}" : "${curdir}")
+
+	if [ $match -eq 0 ] ; then
+		curdir="${svndir}"
+		topsvndirs="${topsvndirs} ${svndir}"
+	fi
+done
+
+# Display the status of each project.
+for topsvndir in $topsvndirs ; do
+	echo "project: ${topsvndir}"
+	svn status -u "${topsvndir}"
+	echo
+done

@@ -1,0 +1,13 @@
+#!/bin/bash
+# $Id$
+#
+# Locate matching files and display in coloured long-list format.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+# Ignore source control droppings.
+locate -r "${1}" | degrep-source-control | xargs -i ls -ld --color=tty {}

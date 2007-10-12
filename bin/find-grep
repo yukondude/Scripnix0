@@ -1,0 +1,13 @@
+#!/bin/bash
+# $Id$
+#
+# Search through the file contents in the current directory and below for lines
+# that match the given regular expression.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+find . -type f -exec egrep -i "${1}" {} \; -ls

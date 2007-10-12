@@ -1,0 +1,1 @@
+sudo find / -type f -mmin -60 -ls | grep -v '\/proc\/' | grep -v '\/dev\/' | grep -v '\/sys\/' | grep -v '\/oradata\/' | sort -k9,10

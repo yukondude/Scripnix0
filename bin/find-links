@@ -1,0 +1,42 @@
+#!/bin/bash
+# $Id$
+#
+# Display all hard and soft links to the given file.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+if [ ${#} -ne 1 ] ; then
+    echo_err "Usage:" $(basename ${0}) "<file>"
+    exit 2
+fi
+
+inode=$(ls -i "${1}" | cut -f1 -d' ')
+
+# Find all the hardlinks.
+links=$(find / -mount -type f -inum ${inode} 2>/dev/null)
+
+# Find all the symlinks.
+while read link linkpath linkedfile ; do
+	# Normalize relative paths.
+	slash=${linkedfile:0:1}
+
+	if [ "${slash}" != '/' ] ; then
+		linkedfile="${linkpath}/${linkedfile}"
+	fi
+
+	# Look up the inode of the linked file.
+	linkedinode=$(ls -i "${linkedfile}" 2>/dev/null | cut -f1 -d' ')
+
+	if [ "${linkedinode}" == "${inode}" ] ; then
+		links="${links} ${link}"
+	fi 
+# Find name, path, and linked-to-file for all symlinks outside of /proc.
+done < <(find / -path /proc -prune -o -type l -printf '%p %h %l\n' 2>/dev/null)
+
+for link in $links ; do
+	ls -ld --color=tty "${link}"
+done

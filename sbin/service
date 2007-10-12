@@ -1,0 +1,35 @@
+#!/bin/bash
+# $Id$
+#
+# Execute the given rc init script with the given action.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/sbin/sbin.bash
+
+function show_available_rc() {
+    # Display the list of executable scripts in the rc init directory.
+    echo_err
+    echo_err "The following rc init scripts are available in ${RC_DIR}:"
+    find ${RC_DIR} -maxdepth 1 -type f -perm -u+x -exec basename {} \; | sort | column >&2
+}
+
+if [ ${#} -ge 1 -a ! -x "${RC_DIR}/${1}" ] ; then
+    # Unknown script so show list.
+    echo_err "Unknown rc init script: ${RC_DIR}/${1}."
+    show_available_rc
+    exit 2
+fi
+
+if [ ${#} -lt 1 -o ${#} -gt 2 ] ; then
+    # Wrong number of arguments. Allow one argument so rc init script will
+    # show possible actions.
+    echo_err "Usage:" $(basename ${0}) "<rc init script> <action>"
+    show_available_rc
+    exit 2
+fi
+
+# Run the damned script already.
+${RC_DIR}/${1} ${2}
