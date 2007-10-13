@@ -1,0 +1,40 @@
+#!/bin/bash
+# $Id$
+#
+# Archive each MySQL database under the $ARCHIVE_MYSQL_DIR directory separately
+# into a compressed tarball in the $ARCHIVE_DIR directory.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/sbin/sbin.bash
+
+dump_dir="${TMP_DIR}/archive-mysql"
+
+# Clear out the temporary dump directory if it already exists.
+if [ -d "${dump_dir}" ] ; then
+    rm -rf "${dump_dir}"
+fi
+
+# Prepare the temporary dump directory and restrict access to the owner.
+mkdir "${dump_dir}"
+chmod go= "${dump_dir}"
+
+# Dump each database separately. Makes a single DB easier to recover rather than
+# using the mysqldump --all-databases option.
+for database in $(find "${ARCHIVE_MYSQL_DIR}" -maxdepth 1 -mindepth 1 -type d) ; do
+    database=$(basename "${database}")
+    mysqldump --opt "${database}" | gzip > "${dump_dir}/${database}.sql.gz"
+done
+
+# Prepare permissions on the dump file, whether or not it already exists.
+dump_file="${ARCHIVE_DIR}/mysql-db-dump.tar"
+touch "${dump_file}"
+chmod g=r,o= "${dump_file}"
+
+# Combine the dump files into a single tarball and clean up temporary files.
+cd "${dump_dir}"
+tar -cf "${dump_file}" *gz 2>/dev/null
+cd -
+rm -fr "${dump_dir}"

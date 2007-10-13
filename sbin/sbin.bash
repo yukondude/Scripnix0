@@ -18,4 +18,7 @@ fi
 # Configuration values. Adjust the following as needed.
 ARCHIVE_DIR="/var/archive"
 ARCHIVE_PATHS="${ARCHIVE_DIR}/archive-paths"
+ARCHIVE_MYSQL_DIR="/var/lib/mysql"
+ARCHIVE_SVN_DIR="/var/lib/svn"
 RC_DIR="/etc/init.d"
+TMP_DIR="/tmp"
