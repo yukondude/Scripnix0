@@ -36,5 +36,5 @@ chmod g=r,o= "${dump_file}"
 # Combine the dump files into a single tarball and clean up temporary files.
 cd "${dump_dir}"
 tar -cf "${dump_file}" *gz 2>/dev/null
-cd -
+cd - &>/dev/null
 rm -fr "${dump_dir}"
