@@ -1,20 +1,13 @@
-#!/bin/bash
 # $Id$
 #
-# Repeat a simple command every N seconds.
+# Root-user command alias definitions. Overrides or extends any /bin/alias.bash
+# definitions.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
 # Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
-source /usr/local/bin/bin.bash
+alias nst='netstat -auntp'
 
-check_arg_count ${0} ${#} 2 -1 '<delay> <command...>'
-
-delay=${1}
-shift
-
-while true ; do
-    ${*}
-    sleep ${delay}
-done
+# Necessary to enable aliases in shell scripts.
+shopt -s expand_aliases

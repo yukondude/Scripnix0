@@ -9,5 +9,7 @@
 
 source /usr/local/bin/bin.bash
 
+check_arg_count ${0} ${#} 1 1 '<regexp>'
+
 # Ignore source control droppings.
-locate -r "${1}" | degrep-source-control | xargs -i ls -ld --color=tty {}
+locate -r ${1} | degrep-source-control | xargs -i ls -ld --color=tty {}

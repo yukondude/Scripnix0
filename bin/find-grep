@@ -10,4 +10,6 @@
 
 source /usr/local/bin/bin.bash
 
+check_arg_count ${0} ${#} 1 1 '<regexp>'
+
 find . -type f -exec egrep -i "${1}" {} \; -ls

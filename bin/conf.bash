@@ -1,20 +1,9 @@
-#!/bin/bash
 # $Id$
 #
-# Repeat a simple command every N seconds.
+# Configuration variables.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
 # Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
-source /usr/local/bin/bin.bash
-
-check_arg_count ${0} ${#} 2 -1 '<delay> <command...>'
-
-delay=${1}
-shift
-
-while true ; do
-    ${*}
-    sleep ${delay}
-done
+# Do not edit these. Override values as needed in user-conf.bash.

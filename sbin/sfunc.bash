@@ -1,20 +1,14 @@
-#!/bin/bash
 # $Id$
 #
-# Repeat a simple command every N seconds.
+# Root-user function definitions.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
 # Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
-source /usr/local/bin/bin.bash
-
-check_arg_count ${0} ${#} 2 -1 '<delay> <command...>'
-
-delay=${1}
-shift
-
-while true ; do
-    ${*}
-    sleep ${delay}
-done
+function require_root() {
+    if [ $(id -u) -ne 0 ] ; then
+        echo_err "Must be root to execute" $(basename ${0})"."
+        exit 2
+    fi
+}

@@ -1,0 +1,50 @@
+$Id$
+
+Scripnix Project
+================
+
+General utility shell scripts.
+
+Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+The contents of the Scripnix project are released into the Public Domain.
+
+Installation
+------------
+
+Copy the contents of the bin directory to /usr/local/bin, and the contents of
+the sbin directory to /usr/local/sbin. The /usr/local/bin directory must be
+added to the PATH of all users, and the /usr/local/sbin directory must also be
+added to the PATH of the root user.
+
+If the /usr/local/[s]bin directories don't exist, or are empty, you could
+instead checkout the project's files through Subversion and replace the
+/usr/local subdirectories with symlinks to the checked-out subdirectories.
+
+To add the project's functions and aliases to your shell environment, source the
+bin/rc.bash script from your account's .bashrc script, or the sbin/src.bash
+script from the root user's .bashrc script.
+
+Configuration
+-------------
+
+You may need to override the values of some of the variables in the
+bin/conf.bash and sbin/sconf.bash files. Rather than editing those files,
+put assignments into new bin/user-conf.bash or sbin/suser-conf.bash files,
+respectively. Those assignments will automatically override the ones in the
+supplied project files.
+
+Conventions
+-----------
+
+* Scripts suitable for all users are under the bin directory. Root-only scripts
+  are under the sbin directory.
+* Non-executable files (that are sourced by other scripts) are named with a
+  .bash extension.
+* Non-executable files under the sbin directory are prefixed with the letter
+  's'.
+
+Reporting Bugs
+--------------
+
+Report bugs through the [Google Code Issues screen](http://code.google.com/p/scripnix/issues/list)
+or directly to Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
