@@ -7,3 +7,4 @@
 # This script is released into the Public Domain.
 
 # Do not edit these. Override values as needed in user-conf.bash.
+SVN_REPO_DIR='/var/lib/svn'

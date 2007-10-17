@@ -1,0 +1,16 @@
+#!/bin/bash
+# $Id$
+#
+# Synchronize all mirrored Subversion repositories on the local machine. The
+# script assumes that all such repositories have a suffix of "mirror".
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+for repository in $(find "${SVN_REPO_DIR}" -maxdepth 1 -mindepth 1 -type d -name '*mirror') ; do
+    repository=$(basename "${repository}")
+    svnsync sync "svn://localhost/${repository}"
+done

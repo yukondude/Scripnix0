@@ -16,4 +16,3 @@ RC_DIR='/etc/init.d'
 
 SVN_PASSWD_DB='passwd'
 SVN_REALM=''
-SVN_REPO_DIR='/var/lib/svn'
