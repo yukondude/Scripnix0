@@ -16,7 +16,8 @@ alias la='ls -lA --color=tty'
 alias lh='ls -lh --color=tty'
 alias lt='ls -lt --color=tty'
 
-alias px='ps aux | cat'
+alias pe='ps -eFlT'
+alias px='ps aux'
 alias nst='netstat -aunt'
 
 alias degrep='egrep -v'
