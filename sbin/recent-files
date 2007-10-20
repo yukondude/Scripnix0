@@ -9,4 +9,4 @@
 
 source /usr/local/sbin/sbin.bash
 
-find / -type f -mmin -60 -ls | degrep '\/proc\/' | degrep '\/dev\/' | degrep '\/sys\/' | sort -k9,10
+find / -type f -mmin -60 -ls | degrep '\/(proc|dev|sys)\/' | sort -k9,10
