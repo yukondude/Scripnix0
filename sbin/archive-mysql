@@ -22,7 +22,7 @@ for database in $(find "${MYSQL_DB_DIR}" -maxdepth 1 -mindepth 1 -type d) ; do
 done
 
 # Prepare permissions on the dump file, whether or not it already exists.
-dump_file="${ARCHIVE_DIR}/mysql-dump.tar"
+dump_file="${ARCHIVE_DIR}/${MYSQL_DUMP_FILE}"
 touch "${dump_file}"
 chmod g=r,o= "${dump_file}"
 

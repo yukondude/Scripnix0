@@ -11,8 +11,10 @@ ARCHIVE_DIR='/var/archive'
 ARCHIVE_PATH_DIR='/etc/archive'
 
 MYSQL_DB_DIR='/var/lib/mysql'
+MYSQL_DUMP_FILE='mysql-dump.tar'
 
 RC_DIR='/etc/init.d'
 
+SVN_DUMP_FILE='svn-dump.tar'
 SVN_PASSWD_DB='passwd'
 SVN_REALM=''
