@@ -20,5 +20,5 @@ BEGIN {FS="."}
 EOF)
 
 while read fqdn; do
-	awk "${truncate}" <(echo "${fqdn}")
+    awk "${truncate}" <(echo "${fqdn}")
 done
