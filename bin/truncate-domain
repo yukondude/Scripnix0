@@ -1,0 +1,24 @@
+#!/bin/bash
+# $Id$
+#
+# Truncate a fully qualified domain name by removing the host name part.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+# Awk script uses "." for field delimiter. Truncate IP addresses to first two
+# quads. Truncate Country TLDs to last two or three terms. Truncate all
+# remaining to last two terms.
+truncate=$(cat <<'EOF'
+BEGIN {FS="."}
+/[0-9]$/ {print $1 "." $2 ".0.0"; next}
+/\.(com|org|net|edu|gov|mil|[^.][^.])\.[^.][^.]$/ {print $(NF-2) "." $(NF-1) "." $NF; next}
+{print $(NF-1) "." $NF}
+EOF)
+
+while read fqdn; do
+	awk "${truncate}" <(echo "${fqdn}")
+done

@@ -1,0 +1,15 @@
+#!/bin/bash
+# $Id$
+#
+# Count valid web visits by domain name.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+# Fetch valid visits from the log and extract the visitor's IP address. Look up
+# the fully qualified domain name and truncate it. Count the number of visits to
+# each domain, sorting the results in descending order by count.
+egrep --no-filename 'HTTP\/.+?" 200' ${APACHE_LOG} | cut --fields 1 --delimiter ' ' | logresolve | truncate-domain | sort | uniq --count | sort --numeric-sort --reverse | column -t
