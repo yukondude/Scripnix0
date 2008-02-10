@@ -5,7 +5,7 @@
 # directory using the name of the symlink as the compressed tarball's filename.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/sbin/sbin.bash
@@ -19,8 +19,8 @@ while read linkname linkpath ; do
     
     # Prepare archive file permissions before creating.
     touch ${archive_file}
-    chmod 0640 ${archive_file}
+    chmod u=rw,g=r,o= ${archive_file}
     
     # Create (compressed) archive file.
-    tar -zcpf "${archive_file}" "${linkpath}" 2>/dev/null
+    tar --create --preserve-permissions --gzip --file "${archive_file}" "${linkpath}" 2>/dev/null
 done < <(find "${ARCHIVE_PATH_DIR}" -type l -printf '%p %l\n' 2>/dev/null)

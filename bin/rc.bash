@@ -3,7 +3,7 @@
 # Interactive shell configuration. ~/.bashrc should source this file.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/bin/bin.bash
@@ -12,7 +12,7 @@ source /usr/local/bin/bin.bash
 set -o ignoreeof
 
 # Colourful prompt.
-if [ $(id -u) -eq 0 ]; then
+if [ $(id --user) -eq 0 ]; then
     user_colour='\[\033[01;31m\]'
     user_prompt='#'
 else

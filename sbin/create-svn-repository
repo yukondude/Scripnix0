@@ -4,7 +4,7 @@
 # Create an empty Subversion repository with default security settings.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/sbin/sbin.bash
@@ -24,9 +24,9 @@ svnadmin create "${repo_dir}"
 tmp_conf_file=$(mktemp -t svnserve.conf.XXXXXXXX)
 passwd_db=$(escape_slashes $SVN_PASSWD_DB)
 cat "${conf_file}" | sed "s/^# \(a...-access\)/\1/" | sed "s/^# \(password-db =\).*$/\1 ${passwd_db}/" | sed "s/^# \(realm =\).*$/\1 ${SVN_REALM}/" > "${tmp_conf_file}"
-/bin/cp -f "${tmp_conf_file}" "${conf_file}" # instead of mv (preserves group)
-rm -f "${tmp_conf_file}"
+/bin/cp --force "${tmp_conf_file}" "${conf_file}" # instead of mv (preserves group)
+rm --force "${tmp_conf_file}"
 
 # Lock down the conf/ directory.
-chmod -R go= "${conf_dir}"
-chown -R svnserve "${repo_dir}"
+chmod --recursive go= "${conf_dir}"
+chown --recursive svnserve "${repo_dir}"

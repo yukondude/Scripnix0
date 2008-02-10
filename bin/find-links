@@ -4,14 +4,14 @@
 # Display all hard and soft links to the given file.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/bin/bin.bash
 
 check_arg_count ${0} ${#} 1 1 '<file>'
 
-inode=$(ls -i "${1}" | cut -f1 -d' ')
+inode=$(ls --inode "${1}" | cut --fields 1 --delimiter ' ')
 
 # Find all the hardlinks.
 links=$(find / -mount -type f -inum ${inode} 2>/dev/null)
@@ -26,7 +26,7 @@ while read link linkpath linkedfile ; do
 	fi
 
 	# Look up the inode of the linked file.
-	linkedinode=$(ls -i "${linkedfile}" 2>/dev/null | cut -f1 -d' ')
+	linkedinode=$(ls --inode "${linkedfile}" 2>/dev/null | cut --fields 1 --delimiter ' ')
 
 	if [ "${linkedinode}" == "${inode}" ] ; then
 		links="${links} ${link}"
@@ -35,5 +35,5 @@ while read link linkpath linkedfile ; do
 done < <(find / -path /proc -prune -o -type l -printf '%p %h %l\n' 2>/dev/null)
 
 for link in $links ; do
-	ls -ld --color=tty "${link}"
+	ls -l --directory --color=tty "${link}"
 done

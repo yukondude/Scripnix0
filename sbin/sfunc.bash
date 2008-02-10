@@ -7,7 +7,7 @@
 # This script is released into the Public Domain.
 
 function require_root() {
-    if [ $(id -u) -ne 0 ] ; then
+    if [ $(id --user) -ne 0 ] ; then
         echo_err "Must be root to execute" $(basename ${0})"."
         exit 2
     fi

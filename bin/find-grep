@@ -5,11 +5,11 @@
 # that match the given regular expression.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/bin/bin.bash
 
 check_arg_count ${0} ${#} 1 1 '<regexp>'
 
-find . -type f -exec egrep -i "${1}" {} \; -ls
+find . -type f -exec egrep --ignore-case "${1}" {} \; -ls
