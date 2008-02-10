@@ -4,7 +4,7 @@
 # Repeat a simple command every N seconds.
 #
 # This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/bin/bin.bash
@@ -15,6 +15,8 @@ delay=${1}
 shift
 
 while true ; do
+    date
     ${*}
+    echo
     sleep ${delay}
 done
