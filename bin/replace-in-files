@@ -19,6 +19,9 @@ shift
 while [ -n "${1}" ] ; do
     filepath="${1}"
 
+    # Ignore non-files
+    [ ! -f "${filepath}" ] && shift && continue
+
     # Remember the modification time in case the operation needs to be undone.
     mtime=$(stat --format %Y "${filepath}")
 
