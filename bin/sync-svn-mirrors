@@ -4,7 +4,7 @@
 # Synchronize all mirrored Subversion repositories on the local machine. The
 # script assumes that all such repositories have a suffix of "mirror".
 #
-# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 

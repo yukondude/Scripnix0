@@ -7,7 +7,7 @@
 # Requires the html2text.py Python script by Aaron Swartz to convert from HTML
 # to Markdown text <http://www.aaronsw.com/2002/html2text/>.
 #
-# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 

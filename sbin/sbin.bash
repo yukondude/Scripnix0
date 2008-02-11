@@ -3,7 +3,7 @@
 # Root-user utility script definitions. All /usr/local/sbin scripts should
 # source this file.
 #
-# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 

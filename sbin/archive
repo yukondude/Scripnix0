@@ -4,7 +4,7 @@
 # Archive all directories symlinked under $ARCHIVE_PATHS to the $ARCHIVE_DIR
 # directory using the name of the symlink as the compressed tarball's filename.
 #
-# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
 # This script is released into the Public Domain.
 
