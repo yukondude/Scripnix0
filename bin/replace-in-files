@@ -1,0 +1,45 @@
+#!/bin/bash
+# $Id$
+#
+# Execute the given sed-compatible (extended regexpi syntax) search and replace
+# operation on all of the files specified. If a change is made, a dated copy of
+# the original is stored.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 2 -1 '<regexp> <file>[...]'
+
+regexp="${1}"
+shift
+
+while [ -n "${1}" ] ; do
+    filepath="${1}"
+
+    # Remember the modification time in case the operation needs to be undone.
+    mtime=$(stat --format %Y "${filepath}")
+
+    # Find a unique, dated suffix for the original file.
+    suffix=$(date --date @${mtime} +%Y%m%d)
+    directory=$(dirname "${filepath}")
+    unique_suffix=$(unique-name "${directory}" "${filepath}.${suffix}")
+    suffix=${unique_suffix##*.}
+    orig_filepath="${filepath}.${suffix}"
+
+    # Execute the replacement.
+    sed --in-place=".${suffix}" --regexp-extended --expression "${regexp}" "${filepath}"
+
+    # If nothing was changed, undo the operation by erasing the dated copy and restoring
+    # the original's modification time.
+    changed=$(diff --brief "${filepath}" "${orig_filepath}")
+
+    if [ -z "${changed}" ] ; then
+        rm -f "${orig_filepath}"
+        touch --date @${mtime} -m "${filepath}"
+    fi
+
+    shift
+done
