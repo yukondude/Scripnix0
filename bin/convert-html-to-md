@@ -1,0 +1,45 @@
+#!/bin/bash
+# $Id$
+#
+# Convert the specified HTML files into Markdown text-format equivalents in the
+# current working directory. The file extension will be .md.txt.
+#
+# Requires the html2text.py Python script by Aaron Swartz to convert from HTML
+# to Markdown text <http://www.aaronsw.com/2002/html2text/>.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 2 -1 '<path-to-html2text.py> <html-file>[...]'
+
+html2text="${1}"
+
+if [ ! -r "${html2text}" ] ; then
+    echo_err $(basename "${0}") "expects path to html2text.py as first argument."
+    exit 1
+fi
+
+shift
+
+while [ -n "${1}" ] ; do
+    # Use the contents of the <title> element for the filename. In case the
+    # <title> element spans multiple lines, the entire file is first converted
+    # to a single line before the sed pattern is applied. Any "unsafe"
+    # characters are then replaced with hyphens to produce a valid filename.
+    title=$(cat "${1}" | \
+            tr --delete '\n\r' | \
+            sed --quiet --regexp-extended --expression 's/^.*<title>(.*?)<\/title>.*$/\1\n/ip' | \
+            hyphenate)
+
+    # If there's no <title>, then just use the original filename.
+    if [ -z "${title}" ] ; then
+        title=$(basename "${1}" .html)
+    fi
+
+    # Convert the HTML to Markdown, using a unique destination filename.
+    cat "${1}" | python "${html2text}" > $(unique-name . "${title}.md.txt" .md.txt)
+    shift
+done

@@ -1,0 +1,38 @@
+#!/bin/bash
+# $Id$
+#
+# Find a unique name within the given directory for the specified file,
+# appending a hyphen and number, as necessary. Insert the appendix before
+# the file extension, if supplied.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 2 3 '<directory> <filename> [<extension>]'
+
+# Remove any trailing slash.
+directory="${1%%/}"
+
+if [ ${#} -eq 3 ] ; then
+    extension="${3}"
+else
+    extension=""
+fi
+
+file_name=$(basename "${2}" "${extension}")
+
+# Start off with the filename as-is.
+unique_name="${file_name}${extension}"
+i=1
+
+# Test the name until it is unique within the directory. Add and increment
+# the appendix as necessary.
+while [ -e "${directory}/${unique_name}" ] ; do
+    unique_name="${file_name}-${i}${extension}"
+    i=$(( ${i} + 1 ))
+done
+
+echo "${unique_name}"

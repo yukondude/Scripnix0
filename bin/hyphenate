@@ -1,0 +1,23 @@
+#!/bin/bash
+# $Id$
+#
+# Translate the given filenames (via stdin) into their equivalent,
+# filesystem-safe, hyphenated versions.
+#
+# This file is a part of Scripnix <http://code.google.com/p/scripnix/>.
+# Written in 2008 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+# Characters that shouldn't really appear in a filename.
+unsafe="\`~\!@#$%^&*()+={}|[]\\:;\"\'<>?,/ \t"
+
+while read name; do
+    # Replace the unsafe characters with hyphens, removing redundant sequential
+    # hyphens and any hyphen at the beginning or end of the name.
+    echo "${name}" | \
+        tr "${unsafe}" '[-*]' | \
+        sed --regexp-extended --expression 's/-{2,}/-/g' | \
+        sed --regexp-extended --expression 's/^-|-$//g'
+done
