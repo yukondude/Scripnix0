@@ -4,7 +4,7 @@
 # Overrides or extends any /bin/rc.bash definitions.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2007 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/bin/rc.bash

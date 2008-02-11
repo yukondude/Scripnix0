@@ -3,7 +3,7 @@
 # Common function definitions.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
-# Written in 2007 by Dave Rogers <thedude-strudel-yukondude-fullstop-com>.
+# Written in 2007 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
 # Exit with error message if the count of command arguments does not fall into
