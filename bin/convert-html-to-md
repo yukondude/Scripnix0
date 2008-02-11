@@ -30,7 +30,7 @@ while [ -n "${1}" ] ; do
     # to a single line before the sed pattern is applied. Any "unsafe"
     # characters are then replaced with hyphens to produce a valid filename.
     title=$(cat "${1}" | \
-            tr --delete '\n\r' | \
+            tr '\n\r' '[ *]' | \
             sed --quiet --regexp-extended --expression 's/^.*<title>(.*?)<\/title>.*$/\1\n/ip' | \
             hyphenate)
 
