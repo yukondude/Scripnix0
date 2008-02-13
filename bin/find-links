@@ -18,22 +18,22 @@ links=$(find / -mount -type f -inum ${inode} 2>/dev/null)
 
 # Find all the symlinks.
 while read link linkpath linkedfile ; do
-	# Normalize relative paths.
-	slash=${linkedfile:0:1}
+    # Normalize relative paths.
+    slash=${linkedfile:0:1}
 
-	if [ "${slash}" != '/' ] ; then
-		linkedfile="${linkpath}/${linkedfile}"
-	fi
+    if [ "${slash}" != '/' ] ; then
+        linkedfile="${linkpath}/${linkedfile}"
+    fi
 
-	# Look up the inode of the linked file.
-	linkedinode=$(ls --inode "${linkedfile}" 2>/dev/null | cut --fields 1 --delimiter ' ')
+    # Look up the inode of the linked file.
+    linkedinode=$(ls --inode "${linkedfile}" 2>/dev/null | cut --fields 1 --delimiter ' ')
 
-	if [ "${linkedinode}" == "${inode}" ] ; then
-		links="${links} ${link}"
-	fi 
+    if [ "${linkedinode}" == "${inode}" ] ; then
+        links="${links} ${link}"
+    fi 
 # Find name, path, and linked-to-file for all symlinks outside of /proc.
 done < <(find / -path /proc -prune -o -type l -printf '%p %h %l\n' 2>/dev/null)
 
 for link in $links ; do
-	ls -l --directory --color=tty "${link}"
+    ls -l --directory --color=tty "${link}"
 done

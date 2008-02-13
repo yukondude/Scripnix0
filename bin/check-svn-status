@@ -14,17 +14,17 @@ topsvndirs=''
 
 # Find the top-level directory for all Subversion project sandboxes.
 for svndir in $(find / -path /proc -prune -o -type d -name '.svn' -printf '%h\n' 2>/dev/null | sort) ; do
-	match=$(expr "${svndir}" : "${curdir}")
+    match=$(expr "${svndir}" : "${curdir}")
 
-	if [ $match -eq 0 ] ; then
-		curdir="${svndir}"
-		topsvndirs="${topsvndirs} ${svndir}"
-	fi
+    if [ $match -eq 0 ] ; then
+        curdir="${svndir}"
+        topsvndirs="${topsvndirs} ${svndir}"
+    fi
 done
 
 # Display the status of each project.
 for topsvndir in $topsvndirs ; do
-	echo "project: ${topsvndir}"
-	svn status -u "${topsvndir}"
-	echo
+    echo "project: ${topsvndir}"
+    svn status -u "${topsvndir}"
+    echo
 done
