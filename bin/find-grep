@@ -1,8 +1,9 @@
 #!/bin/bash
 # $Id$
 #
-# Search through the file contents in the current directory and below for lines
-# that match the given regular expression.
+# Search through the file contents in the specified directory (or the current
+# directory if not given), and below, for lines that match the given regular
+# expression.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
@@ -10,6 +11,15 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 1 '<regexp>'
+check_arg_count ${0} ${#} 1 2 '[<directory>] <regexp>'
 
-find . -type f -exec egrep --ignore-case "${1}" {} \; -ls
+if [ ${#} -eq 2 ] ; then
+    directory="${1}"
+    regexp="${2}"
+else
+    directory="."
+    regexp="${1}"
+fi   
+
+find "${directory}" ${FIND_PATH_EXCLUDE} ${FIND_RCS_EXCLUDE} -type f \
+    -exec egrep --ignore-case "${regexp}" {} \; -ls

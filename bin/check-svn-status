@@ -13,7 +13,7 @@ curdir=''
 topsvndirs=''
 
 # Find the top-level directory for all Subversion project sandboxes.
-for svndir in $(find / -path /proc -prune -o -type d -name '.svn' -printf '%h\n' 2>/dev/null | sort) ; do
+for svndir in $(find / ${FIND_PATH_EXCLUDE} -type d -name '.svn' -printf '%h\n' 2>/dev/null | sort) ; do
     match=$(expr "${svndir}" : "${curdir}")
 
     if [ $match -eq 0 ] ; then

@@ -21,7 +21,7 @@ alias px='ps aux'
 alias nst='netstat --all --tcp --udp --numeric'
 
 alias degrep='egrep --invert-match'
-alias degrep-source-control="degrep '\/(\.svn|CVS)'"
+alias degrep-rcs="degrep '\/(\.svn|CVS)'"
 
 # Necessary to enable aliases in shell scripts.
 shopt -s expand_aliases

@@ -23,4 +23,4 @@ while read hash_line; do
     
     echo $hash_line | awk '{ print $2 }'
     prehash=$hash
-done < <(locate --regex ${1} | degrep-source-control | xargs -I{} md5sum {} | sort)
+done < <(locate --regex ${1} | degrep-rcs | xargs -I{} md5sum {} | sort)

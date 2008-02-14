@@ -14,7 +14,7 @@ check_arg_count ${0} ${#} 1 1 '<file>'
 inode=$(ls --inode "${1}" | cut --fields 1 --delimiter ' ')
 
 # Find all the hardlinks.
-links=$(find / -mount -type f -inum ${inode} 2>/dev/null)
+links=$(find / ${FIND_PATH_EXCLUDE} ${FIND_RCS_EXCLUDE} -mount -type f -inum ${inode} 2>/dev/null)
 
 # Find all the symlinks.
 while read link linkpath linkedfile ; do
@@ -32,7 +32,7 @@ while read link linkpath linkedfile ; do
         links="${links} ${link}"
     fi 
 # Find name, path, and linked-to-file for all symlinks outside of /proc.
-done < <(find / -path /proc -prune -o -type l -printf '%p %h %l\n' 2>/dev/null)
+done < <(find / ${FIND_PATH_EXCLUDE} ${FIND_RCS_EXCLUDE} -type l -printf '%p %h %l\n' 2>/dev/null)
 
 for link in $links ; do
     ls -l --directory --color=tty "${link}"
