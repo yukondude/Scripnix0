@@ -1,0 +1,35 @@
+#!/bin/bash
+# $Id$
+#
+# Filter out any files from stdin that don't match one of the given filetypes:
+# file, directory, link (symbolic), pipe, socket, character (device), and block
+# (device). Filetypes may be specified by name or first-letter abbreviation.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 1 -1 '<filetype>[...]'
+
+# Build a string of types to include.
+include_types=''
+
+while [ -n "${1}" ] ; do
+    # Use the lowercase of the first character in the filetype. Substitute a
+    # hyphen for the "file" filetype.
+    include_type=$(echo "${1:0:1}" | tr '[[:upper:]]' '[[:lower:]]' | tr 'f' '-')
+    include_types="${include_types}${include_type}"
+    shift
+done
+
+while read file; do
+    # Read the filetype from the first character of the long directory listing.
+    type=$(ls -l --directory "${file}" | cut --characters 1)
+
+    # Print the file if its type is one of the included types (regexp match).
+    if [[ "${include_types}" =~ "${type}" ]] ; then
+        echo "${file}"
+    fi
+done
