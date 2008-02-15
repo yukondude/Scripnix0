@@ -13,7 +13,7 @@ function show_available_rc() {
     # Display the list of executable scripts in the rc init directory.
     echo_err
     echo_err "The following rc init scripts are available in ${RC_DIR}:"
-    find ${RC_DIR} -maxdepth 1 -type f -perm -u+x -exec basename {} \; | sort | column >&2
+    find "${RC_DIR}/" -maxdepth 1 -type f -perm -u+x -exec basename {} \; | sort | column >&2
 }
 
 if [ ${#} -ge 1 -a ! -x "${RC_DIR}/${1}" ] ; then

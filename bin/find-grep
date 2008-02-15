@@ -21,5 +21,6 @@ else
     regexp="${1}"
 fi   
 
-find "${directory}" ${FIND_PATH_EXCLUDE} ${FIND_RCS_EXCLUDE} -type f \
-    -exec egrep --ignore-case "${regexp}" {} \; -ls
+find "${directory}" ${FIND_PATH_EXCLUDE} -type f | \
+    degrep-rcs | \
+    xargs -I{} egrep --ignore-case --line-number --with-filename "${regexp}" {}

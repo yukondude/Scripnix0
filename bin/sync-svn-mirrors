@@ -10,7 +10,7 @@
 
 source /usr/local/bin/bin.bash
 
-for repository in $(find "${SVN_REPO_DIR}" -maxdepth 1 -mindepth 1 -type d -name '*mirror') ; do
+for repository in $(find "${SVN_REPO_DIR}/" -maxdepth 1 -mindepth 1 -type d -name '*mirror') ; do
     repository=$(basename "${repository}")
     svnsync sync "svn://localhost/${repository}"
 done

@@ -15,7 +15,7 @@ tmp_dir=$(mktemp -dt 'archive-XXXXXXXX')
 chmod go= "${tmp_dir}"
 
 # Dump each repository.
-for repository in $(find "${SVN_REPO_DIR}" -maxdepth 1 -mindepth 1 -type d) ; do
+for repository in $(find "${SVN_REPO_DIR}/" -maxdepth 1 -mindepth 1 -type d) ; do
     repository=$(basename "${repository}")
     svnadmin dump "${SVN_REPO_DIR}/${repository}" --quiet | gzip > "${tmp_dir}/${repository}.svn.gz"
 done

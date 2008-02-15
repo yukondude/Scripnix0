@@ -14,5 +14,4 @@ APACHE_LOG='/var/log/apache2/access.log'
 SVN_REPO_DIR='/var/lib/svn'
 
 # Exclusions from find searches.
-FIND_PATH_EXCLUDE='-path /dev -prune -o -path /proc -prune -o -path /sys -prune -o'
-FIND_RCS_EXCLUDE='-type d -name .svn -prune -o -type d -name CVS -prune -o'
+FIND_PATH_EXCLUDE='-path /dev/ -prune -or -path /proc/ -prune -or -path /sys/ -prune -or'
