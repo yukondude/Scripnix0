@@ -25,6 +25,6 @@ done
 # Display the status of each project.
 for topsvndir in $topsvndirs ; do
     echo "project: ${topsvndir}"
-    svn status -u "${topsvndir}"
+    svn status --ignore-externals --show-updates "${topsvndir}"
     echo
 done
