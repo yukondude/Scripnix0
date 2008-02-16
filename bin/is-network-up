@@ -1,0 +1,28 @@
+#!/bin/bash
+# $Id$
+#
+# Detects whether a network host is reachable via ICMP ping. Uses the local
+# network gateway unless a specific host's IP is specified. Return code will be
+# zero for a successful ping.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 0 1 '[<host>]'
+
+if [ -n "${1}" ] ; then
+    host="${1}"
+else
+    # Is slicing and dicing route's output really the best way to detect the
+    # gateway's IP address?
+    host=$(route --numeric | \
+           awk '/^[.0-9]+/ {print $2 " " $4}' | \
+           egrep ' .*G' | \
+           cut -f1 -d' ')
+fi
+
+# "Give me a ping, Vasili. One ping only, please."
+ping -c1 -q "${host}" >/dev/null
