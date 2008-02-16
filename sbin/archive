@@ -23,4 +23,4 @@ while read linkname linkpath ; do
     
     # Create (compressed) archive file.
     tar --create --preserve-permissions --gzip --file "${archive_file}" "${linkpath}" 2>/dev/null
-done < <(find "${ARCHIVE_PATH_DIR}" -type l -printf '%p %l\n' 2>/dev/null)
+done < <(find "${ARCHIVE_PATH_DIR}/" -type l -printf '%p %l\n' 2>/dev/null)

@@ -18,8 +18,9 @@ extensions='php html css tpl'
 for extension in $extensions; do
     # Ignore blank lines, single-line PHP comments, lines with only PHP code
     # tags, or single-line Smarty comments.
-    loc=$(find "${loc_dir}" ${FIND_PATH_EXCLUDE} -type f -name "*.${extension}" | \
-        xargs -I{} egrep --invert-match '(^[[:space:]]*$)|(^[[:space:]]*(#|//))|(^[[:space:]]*(\?>)?(<\?)?[[:space:]]*$)|(^[[:space:]]*{\*.*\*}[[:space:]]*$)' {} | \
+    loc=$(find "${loc_dir}" ${FIND_PATH_EXCLUDE} -or -type f -name "*.${extension}" -print0 | \
+        degrep-rcs0 | \
+        xargs -I{} --null egrep --invert-match '(^[[:space:]]*$)|(^[[:space:]]*(#|//))|(^[[:space:]]*(\?>)?(<\?)?[[:space:]]*$)|(^[[:space:]]*{\*.*\*}[[:space:]]*$)' {} | \
         wc --lines)
 
     if [ ${loc} -ne 0 ] ; then

@@ -16,7 +16,7 @@ chmod go= "${tmp_dir}"
 
 # Dump each database separately. Makes a single DB easier to recover rather than
 # using the mysqldump --all-databases option.
-for database in $(find "${MYSQL_DB_DIR}/" -maxdepth 1 -mindepth 1 -type d) ; do
+for database in $(find "${MYSQL_DB_DIR}/" -maxdepth 1 -mindepth 1 -type d -print) ; do
     database=$(basename "${database}")
     mysqldump --opt "${database}" | gzip > "${tmp_dir}/${database}.sql.gz"
 done
