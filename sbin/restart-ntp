@@ -1,0 +1,18 @@
+#!/bin/bash
+# $Id$
+#
+# Restart the NTP time service, forcing a time synchronization while the
+# service is stopped.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/sbin/sbin.bash
+
+# Slow and silent.
+control-service ntp stop >/dev/null
+sleep 5
+ntpdate "${NTPDATE_SERVER}" >/dev/null
+sleep 5
+control-service ntp start >/dev/null

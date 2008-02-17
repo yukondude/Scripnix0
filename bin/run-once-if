@@ -1,0 +1,40 @@
+#!/bin/bash
+# $Id$
+#
+# Run the given command at most once per day, provided the specified condition
+# is true (returns an exit code of 0).
+#
+# For example, to synchronize the time once per day, but only if the network
+# is operational, you could schedule the following as a command in your
+# [ana]crontab file to run every hour:
+#
+# run-once-if is-network-up 'ntpdate time.nrc.ca'
+#
+# It will only run once each day, just as soon as the network is up.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 2 2 '<condition> <command>'
+
+condition="${1}"
+command="${2}"
+
+# The run file is a flag. If present, the command has not been run today.
+# Concatenate the script and its arguments together to make a reasonably-unique
+# file name.
+run_file=$(echo $(basename "${0}") "${condition} ${command}.run" | hyphenate)
+
+# Remove the run file if it is more than one day (1,440 minutes) old.
+find ${TMP_DIR}/ -name "${run_file}" -mmin +1440 -exec rm --force {} \;
+
+# If the run file does not exist and the condition evaluates as true, then run
+# the command and touch the run file so that it doesn't run again today. The run
+# file will be created regardless of whether the command executes successfuly.
+if [ ! -f "${TMP_DIR}/${run_file}" ] && ${condition} ; then
+    ${command}
+    touch "${TMP_DIR}/${run_file}"
+fi
