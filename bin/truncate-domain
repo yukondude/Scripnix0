@@ -1,7 +1,8 @@
 #!/bin/bash
 # $Id$
 #
-# Truncate a fully qualified domain name by removing the host name part.
+# Truncate a fully qualified domain name by removing the host name part. Only
+# the first column of the input is truncated.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
@@ -19,6 +20,7 @@ BEGIN {FS="."}
 {print $(NF-1) "." $NF}
 EOF)
 
-while read fqdn; do
-    awk "${truncate}" <(echo "${fqdn}")
+while read fqdn remaining; do
+    truncated_fqdn=$(awk "${truncate}" <(echo "${fqdn}"))
+    echo $truncated_fqdn $remaining
 done
