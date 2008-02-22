@@ -1,7 +1,8 @@
 #!/bin/bash
 # $Id$
 #
-# Count invalid (HTTP 40x) web requests by domain name.
+# Count invalid (HTTP 40x) web requests by domain name. Optionally filter
+# log entries with a regular expression.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
@@ -9,11 +10,20 @@
 
 source /usr/local/bin/bin.bash
 
+check_arg_count ${0} ${#} 0 1 '[<regexp>]'
+
+if [ -n "${1}" ] ; then
+    regexp="${1}"
+else
+    regexp=".*"
+fi
+
 # Fetch invalid hits from the log and extract the visitor's IP address, the
 # error code, and the request. Look up the fully qualified domain name and
 # truncate it. Count the number of misses, sorting the results in descending
 # order by count.
 egrep --no-filename 'HTTP\/.+?" 40.' ${APACHE_LOG} | \
+    egrep "${regexp}" | \
     awk '{print $1 " " $9 " " $7}' | \
     logresolve | \
     truncate-domain | \
