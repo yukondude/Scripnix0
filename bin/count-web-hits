@@ -1,0 +1,22 @@
+#!/bin/bash
+# $Id$
+#
+# Count valid (HTTP 200 OK) web hits by domain name.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+# Fetch valid hits from the log and extract the visitor's IP address. Look up
+# the fully qualified domain name and truncate it. Count the number of hits from
+# each domain, sorting the results in descending order by count.
+egrep --no-filename 'HTTP\/.+?" 200' ${APACHE_LOG} | \
+    cut --fields 1 --delimiter ' ' | \
+    logresolve | \
+    truncate-domain | \
+    sort | \
+    uniq --count | \
+    sort --numeric-sort --reverse | \
+    column -t
