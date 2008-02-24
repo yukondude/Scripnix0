@@ -1,0 +1,28 @@
+#!/bin/bash
+# $Id$
+#
+# Count hits to web pages. Optionally filter log entries with a regular
+# expression.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 0 1 '[<regexp>]'
+
+if [ -n "${1}" ] ; then
+    regexp="${1}"
+else
+    regexp=".*"
+fi
+
+# Fetch hits from the log and extract the request portion. Count the number of
+# hits, sorting the results in descending order by count.
+egrep --no-filename "${regexp}" ${APACHE_LOG} | \
+    awk '{print $7}' | \
+    sort | \
+    uniq --count | \
+    sort --numeric-sort --reverse | \
+    column -t
