@@ -8,7 +8,8 @@
 
 # Do not edit these. Override values as needed in suser-conf.bash.
 ARCHIVE_DIR='/var/archive'
-ARCHIVE_PATH_DIR='/etc/archive'
+ARCHIVE_EXCLUSIONS='/usr/local/sbin/archive-exclusions'
+ARCHIVE_PATH_DIR='/usr/local/sbin/archive-paths'
 
 MYSQL_DB_DIR='/var/lib/mysql'
 MYSQL_DUMP_FILE='mysql-dump.tar'
