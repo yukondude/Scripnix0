@@ -10,6 +10,7 @@ alias cp='cp --interactive'
 alias mv='mv --interactive'
 alias rm='rm --interactive'
 
+alias l='ls --color=tty'
 alias ls='ls --color=tty'
 alias ll='ls -l --color=tty'
 alias la='ls -l --almost-all --color=tty'
