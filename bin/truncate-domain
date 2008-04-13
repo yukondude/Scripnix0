@@ -15,7 +15,7 @@ source /usr/local/bin/bin.bash
 # remaining to last two terms.
 truncate=$(cat <<'EOF'
 BEGIN {FS="."}
-/[0-9]$/ {print $1 "." $2 ".0.0"; next}
+/[0-9]$/ {print $1 "." $2 ".0.0/16"; next}
 /\.(com|org|net|edu|gov|mil|[^.][^.])\.[^.][^.]$/ {print $(NF-2) "." $(NF-1) "." $NF; next}
 {print $(NF-1) "." $NF}
 EOF)
