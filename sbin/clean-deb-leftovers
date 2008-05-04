@@ -1,0 +1,19 @@
+#!/bin/bash
+# $Id$
+#
+# Remove orphaned packages and unneeded package files from Debian-like
+# distributions.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/sbin/sbin.bash
+
+check_arg_count ${0} ${#} 0 0 ''
+
+for package in $(deborphan) ; do
+    apt-get --quiet=2 --yes purge "${package}"
+done
+
+apt-get --quiet=2 autoclean
