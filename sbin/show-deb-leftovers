@@ -13,4 +13,5 @@ source /usr/local/sbin/sbin.bash
 check_arg_count ${0} ${#} 0 0 ''
 
 deborphan
+apt-get --quiet=2 --simulate autoremove
 apt-get --quiet=2 --simulate autoclean

@@ -16,4 +16,5 @@ for package in $(deborphan) ; do
     apt-get --quiet=2 --yes purge "${package}"
 done
 
+apt-get --quiet=2 autoremove
 apt-get --quiet=2 autoclean
