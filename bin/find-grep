@@ -23,8 +23,9 @@ fi
 
 # Jump through hoops to find the regexp in all files, excluding RCS gunk. Use
 # null-terminated lines throughout to avoid problems with filenames containing
-# quotes.
+# quotes. Trim any leading whitespace from the matching line.
 find "${directory}" ${FIND_PATH_EXCLUDE} -or -type f -print0 | \
     degrep-rcs0 | \
     sort --zero-terminated | \
-    xargs -I{} --null egrep --ignore-case --line-number --with-filename "${regexp}" {}
+    xargs -I{} --null egrep --ignore-case --line-number --with-filename "${regexp}" {} | \
+    sed --regexp-extended 's/:[[:space:]]+/:/'
