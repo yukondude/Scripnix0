@@ -12,12 +12,12 @@ source /usr/local/sbin/sbin.bash
 check_arg_count ${0} ${#} 0 1 '[<minimum-file-size-in-mb>]'
 
 if [[ -n "${1}" ]] ; then
-    min_size_mb="${1}"
+    min_size_mb=$(( ${1} * 1024 ))
 else
-    min_size_mb=100
+    min_size_mb=$(( 100 * 1024 ))
 fi
 
-find / ${FIND_PATH_EXCLUDE} -or -type f -size "+${min_size_mb}M" -print | \
+find / ${FIND_PATH_EXCLUDE} -or -type f -size "+${min_size_mb}k" -print | \
     xargs -I{} ls -l --block-size M --directory {} | \
     sort --key 5 --numeric-sort --reverse | \
     column -t
