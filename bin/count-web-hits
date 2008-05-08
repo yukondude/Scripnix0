@@ -2,7 +2,8 @@
 # $Id$
 #
 # Count valid (HTTP 200 OK) web hits by domain name. Optionally filter log
-# entries with a regular expression.
+# entries with a regular expression and, if given, discard entries that match
+# a second regular expression.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
@@ -10,12 +11,20 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 0 1 '[<regexp>]'
+check_arg_count ${0} ${#} 0 2 '[<regexp>] [<!regexp>]'
 
 if [ -n "${1}" ] ; then
     regexp="${1}"
 else
+    # Match everything.
     regexp=".*"
+fi
+
+if [ -n "${2}" ] ; then
+    deregexp="${2}"
+else
+    # Match nothing (blank lines shouldn't appear anyway).
+    deregexp="^$"
 fi
 
 # Fetch valid hits from the log and extract the visitor's IP address. Look up
@@ -23,6 +32,7 @@ fi
 # each domain, sorting the results in descending order by count.
 egrep --no-filename 'HTTP\/.+?" 200' ${APACHE_LOG} | \
     egrep "${regexp}" | \
+    degrep "${deregexp}" | \
     cut --fields 1 --delimiter ' ' | \
     logresolve | \
     truncate-domain | \

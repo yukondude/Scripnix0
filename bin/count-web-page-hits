@@ -2,6 +2,7 @@
 # $Id$
 #
 # Count hits to web pages. Optionally filter log entries with a regular
+# expression and, if given, discard entries that match a second regular
 # expression.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
@@ -10,17 +11,26 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 0 1 '[<regexp>]'
+check_arg_count ${0} ${#} 0 2 '[<regexp>] [<!regexp>]'
 
 if [ -n "${1}" ] ; then
     regexp="${1}"
 else
+    # Match everything.
     regexp=".*"
+fi
+
+if [ -n "${2}" ] ; then
+    deregexp="${2}"
+else
+    # Match nothing (blank lines shouldn't appear anyway).
+    deregexp="^$"
 fi
 
 # Fetch hits from the log and extract the request portion. Count the number of
 # hits, sorting the results in descending order by count.
 egrep --no-filename "${regexp}" ${APACHE_LOG} | \
+    degrep "${deregexp}" | \
     awk '{print $7}' | \
     sort | \
     uniq --count | \
