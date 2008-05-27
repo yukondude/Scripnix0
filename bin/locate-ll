@@ -12,4 +12,4 @@ source /usr/local/bin/bin.bash
 check_arg_count ${0} ${#} 1 1 '<regexp>'
 
 # Ignore source control droppings.
-locate --regex ${1} | degrep-rcs | xargs -I{} ls -l --directory {} | column -t
+locate -r ${1} | degrep-rcs | xargs -I{} ls -l --directory {} | column -t
