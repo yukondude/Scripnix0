@@ -16,6 +16,7 @@ alias ll='ls -l --color=tty'
 alias la='ls -l --almost-all --color=tty'
 alias lh='ls -l --human-readable --color=tty'
 alias lt='ls -lt --color=tty'
+alias lrt='ls -lrt --color=tty'
 
 alias ltt='last | tac | tail -n20'
 alias pe='ps -eFlT'
