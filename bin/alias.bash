@@ -18,7 +18,7 @@ alias lh='ls -l --human-readable --color=tty'
 alias lt='ls -lt --color=tty'
 alias lrt='ls -lrt --color=tty'
 
-alias ltt='last | tac | tail -n20'
+alias ltt='last -a | tac | tail -n20'
 alias pe='ps -eFlT'
 alias px='ps aux'
 alias nst='netstat --all --tcp --udp --numeric'
