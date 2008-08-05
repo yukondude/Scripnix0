@@ -16,6 +16,7 @@ MYSQL_DUMP_FILE='mysql-dump.tar'
 
 RC_DIR='/etc/init.d'
 
-SVN_DUMP_FILE='svn-dump.tar'
+SVN_DUMP_FILE='dump.svn.gz'
+SVN_REPOSITORIES_DUMP_FILE='svn-dump.tar'
 SVN_PASSWD_DB='passwd'
 SVN_REALM=''

@@ -1,7 +1,7 @@
 #!/bin/bash
 # $Id$
 #
-# Archive a dump of each Subversion respository under the $ARCHIVE_SVN_DIR
+# Archive a dump of the Subversion respository under the $ARCHIVE_SVN_DIR
 # directory into a compressed tarball in the $ARCHIVE_DIR directory.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
@@ -15,18 +15,13 @@ tmp_dir=$(mktemp -dt 'archive-XXXXXXXX')
 chmod go= "${tmp_dir}"
 
 # Dump each repository.
-for repository in $(find "${SVN_REPO_DIR}/" -maxdepth 1 -mindepth 1 -type d -print) ; do
-    repository=$(basename "${repository}")
-    svnadmin dump "${SVN_REPO_DIR}/${repository}" --quiet | gzip > "${tmp_dir}/${repository}.svn.gz"
-done
+svnadmin dump "${SVN_REPO_DIR}" --quiet | gzip > "${tmp_dir}/${SVN_DUMP_FILE}"
 
 # Prepare permissions on the dump file, whether or not it already exists.
-dump_file="${ARCHIVE_DIR}/${SVN_REPOSITORIES_DUMP_FILE}"
+dump_file="${ARCHIVE_DIR}/${SVN_DUMP_FILE}"
 touch "${dump_file}"
 chmod g=r,o= "${dump_file}"
 
 # Combine the dump files into a single tarball and clean up temporary files.
-cd "${tmp_dir}"
-tar --create --file "${dump_file}" *gz 2>/dev/null
-cd /
+mv --force "${tmp_dir}/${SVN_DUMP_FILE}" "${dump_file}" 2>/dev/null
 rm --force --recursive "${tmp_dir}"
