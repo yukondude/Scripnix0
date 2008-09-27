@@ -22,4 +22,4 @@ fi
 
 dir_colour='\[\033[01;34m\]'
 base_colour='\[\033[00m\]'
-export PS1="${user_colour}\u${dir_colour}@${user_colour}\h${dir_colour} \w ${user_colour}${user_prompt}${base_colour} "
+export PS1="${user_colour}\u${dir_colour}@\h \w ${user_colour}${user_prompt}${base_colour} "
