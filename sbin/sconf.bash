@@ -14,6 +14,8 @@ ARCHIVE_PATH_DIR='/usr/local/sbin/archive-paths'
 MYSQL_DB_DIR='/var/lib/mysql'
 MYSQL_DUMP_FILE='mysql-dump.tar'
 
+PGSQL_DUMP_FILE='pgsql-dump.tar'
+
 RC_DIR='/etc/init.d'
 
 SVN_DUMP_FILE='dump.svn.gz'
