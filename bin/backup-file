@@ -1,0 +1,29 @@
+#!/bin/bash
+# $Id$
+#
+# "Backup" the named file or files by making copies of them using each file's
+# last modified date (yyyymmdd) as the extension.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 1 -1 '<file>[...]'
+
+while [ -n "${1}" ] ; do
+    file="${1}"
+    original_file_name=$(basename "${file}")
+    dir_path=$(cd "$(dirname ${file})"; pwd)
+
+    modification_time=$(stat --format=%Y "${file}")
+    date_extension=$(date --date @${modification_time} +%Y%m%d)
+
+    backup_file_name="${original_file_name}.${date_extension}"
+    backup_file_name=$(unique-name "${dir_path}" "${backup_file_name}")
+
+    cp "${file}" "${dir_path}/${backup_file_name}"
+
+    shift
+done
