@@ -7,6 +7,9 @@
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
+# Single tab character. Annoyingly necessary at times.
+TAB=$(echo -en "\t")
+
 # Temporary directory (to which pretty much every user has write permissions).
 TMP_DIR='/tmp'
 
