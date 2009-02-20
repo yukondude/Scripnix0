@@ -1,0 +1,49 @@
+#!/bin/bash
+# $Id$
+#
+# Find all lowest-level directories larger than the given size (MB), or 100MB if
+# not specified.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/sbin/sbin.bash
+
+check_arg_count ${0} ${#} 0 1 '[<minimum-directory-size-in-mb>]'
+
+declare -i min_size_kb
+declare -i dir_size_kb
+
+# Convert minimum directory size units to KB.
+if [[ -n "${1}" ]] ; then
+    min_size_kb=$(( ${1} * 1024 ))
+else
+    min_size_kb=$(( 100 * 1024 ))
+fi
+
+# Temporary file keeps track of big directories already found so that parent
+# directories aren't redundantly reported.
+temp_file=$(mktemp -t)
+
+# Traverse each directory, sorted so that child directories are processed before
+# parents.
+while read dir_size_kb dir_path ; do
+    if [[ $dir_size_kb -ge $min_size_kb ]] ; then
+
+        # If this directory is not a parent of an already-found child directory,
+	# then convert its size to MB (rounding up) and write it to the
+	# temporary file. Use a tab character as the delimiter to avoid problems
+	# with directory names containing spaces.
+        if ! egrep "^[0-9]+[[:space:]]${dir_path}.+$" "${temp_file}" >/dev/null ; then
+	    dir_size_mb=$(( (${dir_size_kb} + 512) / 1024 ))
+            echo "${dir_size_mb}${TAB}${dir_path}" >>"${temp_file}"
+        fi
+    fi
+done < <(find / ${FIND_PATH_EXCLUDE} -or -type d -exec du -sk {} \; |
+         sort --key=2 --reverse)
+
+sort --field-separator="${TAB}" --key=1 --numeric --reverse "${temp_file}" | 
+    column -s"${TAB}" -t
+
+rm --force "${temp_file}"
