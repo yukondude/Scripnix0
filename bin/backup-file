@@ -30,5 +30,8 @@ while [ -n "${1}" ] ; do
 
     cp "${original_file_path}" "${absolute_path}/${backup_file_name}"
 
+    # Backup file shouldn't be executable.
+    chmod --silent -x "${absolute_path}/${backup_file_name}"
+
     shift
 done
