@@ -1,0 +1,32 @@
+#!/bin/bash
+# $Id$
+#
+# Look up the top-level parent Process ID (PID) for the given PID. If none is
+# specified, use the current PID as the starting point.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 0 1 '[<pid>]'
+
+if [[ ${#} -eq 0 ]] ; then
+    pid=${$}
+else
+    pid=${1}
+fi
+
+# Look up the parent PID.
+stat=($(</proc/${pid}/stat))
+ppid=${stat[3]}
+
+# /sbin/init always has a PID of 1, so if you reach that, the current PID is the
+# top-level parent. Otherwise, keep looking with a recursive call to this
+# script.
+if [[ ${ppid} -eq 1 ]] ; then
+    echo ${pid}
+else
+    top-level-parent-pid ${ppid}
+fi

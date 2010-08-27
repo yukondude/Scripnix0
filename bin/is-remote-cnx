@@ -1,0 +1,16 @@
+#!/bin/bash
+# $Id$
+#
+# Detects whether this terminal is a remote SSH connection. Exit code will be
+# zero if it is.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+# This is a remote connection if the top-level parent process is the SSH daemon.
+parent=$(command-for-pid $(top-level-parent-pid))
+match=$(egrep sshd "${parent}")
+test -n "${match}"
