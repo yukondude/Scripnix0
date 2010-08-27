@@ -5,7 +5,7 @@
 # specified, use the current PID as the starting point.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
-# Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
 source /usr/local/bin/bin.bash
