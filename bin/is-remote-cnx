@@ -12,5 +12,5 @@ source /usr/local/bin/bin.bash
 
 # This is a remote connection if the top-level parent process is the SSH daemon.
 parent=$(command-for-pid $(top-level-parent-pid))
-match=$(egrep sshd "${parent}")
+match=$(echo "${parent}" | egrep sshd)
 test -n "${match}"
