@@ -12,21 +12,19 @@ source /usr/local/bin/bin.bash
 
 check_arg_count ${0} ${#} 0 1 '[<pid>]'
 
-if [[ ${#} -eq 0 ]] ; then
-    pid=${$}
-else
+function top_level_parent_pid {
+    # Look up the parent of the given PID.
     pid=${1}
-fi
+    stat=($(</proc/${pid}/stat))
+    ppid=${stat[3]}
 
-# Look up the parent PID.
-stat=($(</proc/${pid}/stat))
-ppid=${stat[3]}
+    # /sbin/init always has a PID of 1, so if you reach that, the current PID is
+    # the top-level parent. Otherwise, keep looking.
+    if [[ ${ppid} -eq 1 ]] ; then
+        echo ${pid}
+    else
+        top_level_parent_pid ${ppid}
+    fi
+}
 
-# /sbin/init always has a PID of 1, so if you reach that, the current PID is the
-# top-level parent. Otherwise, keep looking with a recursive call to this
-# script.
-if [[ ${ppid} -eq 1 ]] ; then
-    echo ${pid}
-else
-    top-level-parent-pid ${ppid}
-fi
+top_level_parent_pid ${1:-$$}
