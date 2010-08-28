@@ -27,5 +27,7 @@ alias degrep='egrep --invert-match'
 alias degrep-rcs="degrep '\/(\.svn|CVS)'"
 alias degrep-rcs0="degrep --null-data '\/(\.svn|CVS)'"
 
+alias set-svn-id="svn propset svn:keywords \"Id\""
+
 # Necessary to enable aliases in shell scripts.
 shopt -s expand_aliases
