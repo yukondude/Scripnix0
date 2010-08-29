@@ -1,0 +1,42 @@
+#!/bin/bash
+# $Id$
+#
+# Remove files under the given directory and matching the supplied filespec
+# (in parentheses if wildcards are specified) that are at least the given
+# number of days old. The date calculation uses midnight of the current day
+# so yesterday would be 1 day old, and any file created after midnight today
+# would be 0 days old.
+#
+# If a file is being written every day and you only want to keep X of them at a
+# time, then it may be more intuitive to just use the value X for the days
+# parameter.
+#
+# For example, the command:
+#
+# remove-old 2 /var/log/ 'apache*log'
+#
+# would delete all files matching "apache*log" in or under the /var/log/
+# directory that are at least 2 days old (created on or before the day before
+# yesterday). Or, if these log files are written once each day (scheduled before
+# this script runs) then you should have just 2 remaining.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 3 3 '<days> <directory> <filespec>'
+
+days="${1}"
+directory="${2}"
+filespec="${3}"
+
+# How may minutes ago was the first midnight after the day in question?
+now_secs=$(date +%s)
+today=$(date +%F)
+midnight_secs=$(date --date "${today}" +%s)
+minutes=$(( (days-1)*24*60+(now_secs-midnight_secs)/60 ))
+
+# Find 'em and delete 'em.
+find "${directory}" -type f -name "${filespec}" -mmin +${minutes} -exec rm -f {} \; 2>/dev/null
