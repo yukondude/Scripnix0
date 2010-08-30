@@ -27,14 +27,14 @@ if [[ -x "/usr/sbin/service" ]] ; then
     fi
 else
     # Otherwise, run the init script manually.
-    if [ ${#} -ge 1 -a ! -x "${RC_DIR}/${1}" ] ; then
+    if [[ ${#} -ge 1 && ! -x "${RC_DIR}/${1}" ]] ; then
         # Unknown script so show list.
         echo_err "Unknown rc init script: ${RC_DIR}/${1}."
         show_available_rc
         exit 1
     fi
 
-    if [ ${#} -lt 1 -o ${#} -gt 2 ] ; then
+    if [[ ${#} -lt 1 || ${#} -gt 2 ]] ; then
         # Wrong number of arguments. Allow one argument so rc init script will
         # show possible actions.
         echo_err "Usage:" $(basename ${0}) "<rc init script> <action>"
