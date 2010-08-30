@@ -48,6 +48,7 @@ if [[ ! -f "${sbin_config_file}" ]] ; then
     echo "# Systemwide root account configuration overrides for /usr/local/sbin/sconf.bash." >"${sbin_config_file}"
     echo "MYSQL_DUMP_FILE='${host}-mysql-dump.tar'" >>"${sbin_config_file}"
     echo "PGSQL_DUMP_FILE='${host}-pgsql-dump.tar'" >>"${sbin_config_file}"
+    echo "SVN_REPOSITORIES_DUMP_FILE='${host}-svn-dump.tar'" >>"${sbin_config_file}"
 fi
 
 chmod a=rw,g=r,o= "${sbin_config_file}"
