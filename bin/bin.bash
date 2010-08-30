@@ -8,11 +8,14 @@
 # This script is released into the Public Domain.
 
 bin_dir='/usr/local/bin'
+system_conf_dir='/etc/scripnix'
+user_conf_dir="${HOME}/.scripnix"
+conf_file='conf.bash'
 
-source "${bin_dir}/conf.bash"
-
-# Override conf.bash configuration variables as needed in user-conf.bash.
-[ -r "${bin_dir}/user-conf.bash" ] && source "${bin_dir}/user-conf.bash"
+# Set configuration variables, overriding as necessary.
+source "${bin_dir}/${conf_file}"
+[[ -r "${system_conf_dir}/${conf_file}" ]] && source "${system_conf_dir}/${conf_file}"
+[[ -r "${user_conf_dir}/${conf_file}" ]] && source "${user_conf_dir}/${conf_file}"
 
 source "${bin_dir}/func.bash"
 source "${bin_dir}/alias.bash"

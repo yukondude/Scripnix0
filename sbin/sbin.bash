@@ -10,10 +10,12 @@
 source /usr/local/bin/bin.bash
 
 sbin_dir='/usr/local/sbin'
-source "${sbin_dir}/sconf.bash"
+system_sconf_dir='/etc/scripnix'
+sconf_file='sconf.bash'
 
-# Override sconf.bash configuration variables as needed in suser-conf.bash.
-[ -r "${sbin_dir}/suser-conf.bash" ] && source "${sbin_dir}/suser-conf.bash"
+# Set configuration variables, overriding as necessary.
+source "${sbin_dir}/${sconf_file}"
+[[ -r "${system_sconf_dir}/${sconf_file}" ]] && source "${system_sconf_dir}/${sconf_file}"
 
 source "${sbin_dir}/sfunc.bash"
 source "${sbin_dir}/salias.bash"

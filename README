@@ -5,43 +5,67 @@ Scripnix Project
 
 General utility shell scripts.
 
-Written in 2007-2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+Written in 2007-2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 The contents of the Scripnix project are released into the Public Domain.
 
-Installation
-------------
+Installation using Subversion (Recommended)
+-------------------------------------------
 
-Copy the contents of the bin directory to /usr/local/bin, and the contents of
-the sbin directory to /usr/local/sbin. The /usr/local/bin directory must be
-added to the PATH of all users, and the /usr/local/sbin directory must also be
-added to the PATH of the root user.
+As root, execute the following shell commands:
 
-If the /usr/local/[s]bin directories don't exist, or are empty, you could
-instead checkout the project's files through Subversion and replace the
-/usr/local subdirectories with symlinks to the checked-out subdirectories.
+# cd /usr/local/
+# mkdir scripnix
+# svn checkout http://scripnix.googlecode.com/svn/trunk/ scripnix
+# mv bin bin.old
+# ln -s scripnix/bin
+# mv sbin sbin.old
+# ln -s scripnix/sbin
+# sbin/install-scripnix
 
-To add the project's functions and aliases to your shell environment, source the
-bin/rc.bash script from your account's .bashrc script, or the sbin/src.bash
-script from the root user's .bashrc script.
+You may want to copy back any files from bin.old/ and sbin.old/ to the new bin/
+and sbin/ symlinked directories. They will be ignored by future Subversion
+updates to Scripnix.
+
+To update the Scripnix files, execude the following commands as root:
+
+# cd /usr/local/scripnix
+# svn update
+
+Installation without using Subversion
+-------------------------------------
+
+Download the Scripnix tarball to a scratch directory and unpack it. Copy the
+contents of the bin/ and sbin/ directories to /usr/local/bin/ and /usr/local/sbin/
+respectively. Then run the following commands as root:
+
+# cd /usr/local/sbin/
+# install-scripnix
+
+To update the Scripnix files, download the new tarball and replace the files in
+/usr/local/bin/ and /usr/local/sbin/ with their new versions.
 
 Configuration
 -------------
 
+To add the project's functions and aliases to your shell environment, source the
+/usr/local/bin/rc.bash script from your account's .bashrc script, or the
+/usr/local/sbin/src.bash script from the root user's .bashrc script.
+
 You may need to override the values of some of the variables in the
-bin/conf.bash and sbin/sconf.bash files. Rather than editing those files,
-put assignments into new bin/user-conf.bash or sbin/suser-conf.bash files,
-respectively. Those assignments will automatically override the ones in the
-supplied project files.
+bin/conf.bash and sbin/sconf.bash files. Rather than editing those files (which
+may be updated in future releases), make changes to the appropriate
+/etc/conf.bash or /etc/sconf.bash systemwide configuration files (created by the
+install-scripnix script). Individual users may also create ~/.scripnix/conf.bash
+files in their home directories to further override the systemwide settings.
 
 Conventions
 -----------
 
-* Scripts suitable for all users are under the bin directory. Root-only scripts
-  are under the sbin directory.
-* Non-executable files (that are sourced by other scripts) are named with a
-  .bash extension.
-* Non-executable files under the sbin directory are prefixed with the letter
-  's'.
+* Scripts suitable for all users are under the bin/ directory. Root-only scripts
+  are under the sbin/ directory.
+* Configuration files (that are sourced by other scripts) are named with a .bash
+  extension.
+* In general, root-only configuration files are prefixed with the letter 's'.
 
 Reporting Bugs
 --------------

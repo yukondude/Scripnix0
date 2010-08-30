@@ -1,0 +1,88 @@
+#!/bin/bash
+# $Id$
+#
+# "Install" Scripnix by setting up the systemwide configuration directory and
+# files. Permissions are as restrictive as possible. The script can be re-run
+# without altering existing files or directories, but permissions will be reset.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/sbin/sbin.bash
+
+config_path=/etc/scripnix
+config_readme_file="${config_path}/README"
+bin_config_file="${config_path}/conf.bash"
+sbin_config_file="${config_path}/sconf.bash"
+archive_exclusion_file="${config_path}/archive-exclusions"
+archive_paths_directory="${config_path}/archive-paths"
+archive_paths_readme_file="${archive_paths_directory}/README"
+host=$(echo ${HOSTNAME:-local} | tr '[:upper:]' '[:lower:]')
+
+# Create the systemwide configuration directory.
+if [[ ! -d "${config_path}" ]] ; then
+    mkdir "${config_path}"
+fi
+
+chmod a=rwx,g=rxs,o=rx "${config_path}"
+
+if [[ ! -f "${config_readme_file}" ]] ; then
+    echo "Systemwide configuration settings for the Scripnix project." >"${config_readme_file}"
+    echo "[http://code.google.com/p/scripnix/]" >>"${config_readme_file}"
+fi
+
+chmod ago=r "${config_readme_file}"
+
+# Create the systemwide configuration override files with sample settings.
+if [[ ! -f "${bin_config_file}" ]] ; then
+    echo "# Systemwide user account configuration overrides for /usr/local/bin/conf.bash." >"${bin_config_file}"
+    echo "# Account-specific settings can be made in ~/.scripnix/conf.bash." >>"${bin_config_file}"
+    echo 'FIND_PATH_EXCLUDE="${FIND_PATH_EXCLUDE} -or ( -path /media -or -path /mnt ) -prune"' >>"${bin_config_file}"
+
+fi
+
+chmod a=rw,go=r "${bin_config_file}"
+
+if [[ ! -f "${sbin_config_file}" ]] ; then
+    echo "# Systemwide root account configuration overrides for /usr/local/sbin/sconf.bash." >"${sbin_config_file}"
+    echo "MYSQL_DUMP_FILE='${host}-mysql-dump.tar'" >>"${sbin_config_file}"
+    echo "PGSQL_DUMP_FILE='${host}-pgsql-dump.tar'" >>"${sbin_config_file}"
+fi
+
+chmod a=rw,g=r,o= "${sbin_config_file}"
+
+# Create the systemwide archive script exclusion file and path directory.
+if [[ ! -f "${archive_exclusion_file}" ]] ; then
+    echo "/var/archive/" >"${archive_exclusion_file}"
+fi
+
+chmod a=rw,g=r,o= "${archive_exclusion_file}"
+
+# Create the systemwide archive paths with sample directories.
+if [[ ! -d "${archive_paths_directory}" ]] ; then
+    mkdir "${archive_paths_directory}"
+    cd "${archive_paths_directory}"
+    ln -s /etc/ "${host}-etc"
+    ln -s /home/ "${host}-home"
+    ln -s /root/ "${host}-root"
+    ln -s /var/log/ "${host}-var-log"
+    ln -s /var/mail/ "${host}-var-mail"
+    ln -s /var/spool/ "${host}-var-spool"
+    cd - >/dev/null
+fi
+
+chmod a=rwx,g=rxs,o= "${archive_paths_directory}"
+
+if [[ ! -f "${archive_paths_readme_file}" ]] ; then
+    echo "Systemwide Scripnix archive script backup directories." >"${archive_paths_readme_file}"
+    echo "Backups of the symlinked directories will be named using the link alias." >>"${archive_paths_readme_file}"
+fi
+
+chmod ag=r,o= "${archive_paths_readme_file}"
+
+# Create a more familiar name for the control-service script.
+if [[ ! -h "${sbin_dir}/service" ]] ; then
+    cd "${sbin_dir}"
+    ln -s "${sbin_dir}/control-service" service
+fi
