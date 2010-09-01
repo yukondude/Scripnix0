@@ -1,7 +1,7 @@
 # $Id$
 #
 # Configuration variables. Do not edit these. Instead, override values as needed
-# in user-conf.bash.
+# in /etc/scripnix/conf.bash or ~/.scripnix/conf.bash
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
@@ -19,6 +19,12 @@ APACHE_LOG='/var/log/apache2/access.log'
 # Exclusions from find searches.
 FIND_PATH_EXCLUDE='( -path /dev -or -path /proc -or -path /sys ) -prune'
 FIND_SVN_PATH_EXCLUDE='-path /dev -prune'
+
+# Laptop battery alarms. The alarm sound file must be overriden.
+LOW_BATTERY_LEVEL=10
+LOW_BATTERY_ALARM=''
+HIGH_BATTERY_LEVEL=95
+HIGH_BATTERY_ALARM=''
 
 # Default NTP server for ntpdate command.
 NTPDATE_SERVER='time.nrc.ca'

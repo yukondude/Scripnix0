@@ -1,12 +1,12 @@
 # $Id$
 #
-# Root-user configuration variables.
+# Root-user configuration variables. Do not edit these. Instead, override
+# values as needed in /etc/scripnix/sconf.bash
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2007 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
-# Do not edit these. Override values as needed in suser-conf.bash.
 ARCHIVE_DIR='/var/archive'
 ARCHIVE_EXCLUSIONS='/etc/scripnix/archive-exclusions'
 ARCHIVE_PATH_DIR='/etc/scripnix/archive-paths'
