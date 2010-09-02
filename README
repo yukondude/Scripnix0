@@ -3,7 +3,7 @@ $Id$
 Scripnix Project
 ================
 
-General utility shell scripts.
+Useful bash shell scripts for *NIX.
 
 Written in 2007-2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 The contents of the Scripnix project are released into the Public Domain.
@@ -54,9 +54,10 @@ To add the project's functions and aliases to your shell environment, source the
 You may need to override the values of some of the variables in the
 bin/conf.bash and sbin/sconf.bash files. Rather than editing those files (which
 may be updated in future releases), make changes to the appropriate
-/etc/conf.bash or /etc/sconf.bash systemwide configuration files (created by the
-install-scripnix script). Individual users may also create ~/.scripnix/conf.bash
-files in their home directories to further override the systemwide settings.
+/etc/scripnix/conf.bash or /etc/scripnix/sconf.bash systemwide configuration
+files (created by the install-scripnix script). Individual users may also create
+~/.scripnix/conf.bash files in their home directories to further override the
+systemwide settings.
 
 Conventions
 -----------
