@@ -8,6 +8,7 @@
 # This script is released into the Public Domain.
 
 alias apt-up='aptitude update && aptitude -Pr upgrade'
+alias ift='iftop -nNPB'
 alias ipt='iptables -nvL'
 alias nst='netstat -auntp'
 
