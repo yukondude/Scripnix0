@@ -1,7 +1,12 @@
 #!/bin/bash
 # $Id$
 #
-# Create an empty Subversion repository with default security settings.
+# Create an empty Subversion repository with default security settings. An
+# account that will own the repository files may also be specified (default is
+# svnserve) but must already exist. If you want to use a shared password database
+# file for multiple repositories, override the $SVN_PASSWD_DB configuration
+# variable with the path to that file. You should then restrict access to that
+# file to only the svnserve account that you are using (read-only).
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
@@ -9,24 +14,44 @@
 
 source /usr/local/sbin/sbin.bash
 
-check_arg_count ${0} ${#} 1 1 '<repository-name>'
+check_arg_count ${0} ${#} 1 2 '<repository-name> [<svnserve-account>]'
 
-repo_name=${1}
+repo_name="${1}"
+svnserve="${2:-svnserve}"
 repo_dir="${SVN_REPO_DIR}/${repo_name}"
 conf_dir="${repo_dir}/conf"
 conf_file="${conf_dir}/svnserve.conf"
 
-# Create the repository.
-svnadmin create "${repo_dir}"
 
-# Configure the repository to: allow anonymous reads, required authenticated
-# writes, and use the default values for the password DB and security realm.
-tmp_conf_file=$(mktemp -t svnserve.conf.XXXXXXXX)
-passwd_db=$(escape_slashes $SVN_PASSWD_DB)
-cat "${conf_file}" | sed "s/^# \(a...-access\)/\1/" | sed "s/^# \(password-db =\).*$/\1 ${passwd_db}/" | sed "s/^# \(realm =\).*$/\1 ${SVN_REALM}/" > "${tmp_conf_file}"
-/bin/cp --force "${tmp_conf_file}" "${conf_file}" # instead of mv (preserves group)
-rm --force "${tmp_conf_file}"
+if id "${svnserve}" >/dev/null 2>&1 ; then
+    # Create the repository parent directory, if necessary.
+    if [[ ! -d "${SVN_REPO_DIR}" ]] ; then
+        mkdir "${SVN_REPO_DIR}"
+        chown "${svnserve}" "${SVN_REPO_DIR}"
+        chmod g+s "${SVN_REPO_DIR}"
+    fi
 
-# Lock down the conf/ directory.
-chmod --recursive go= "${conf_dir}"
-chown --recursive svnserve "${repo_dir}"
+    # Create the repository.
+    svnadmin create "${repo_dir}"
+
+    # Configure the repository to: allow anonymous reads, required authenticated
+    # writes, and use the default values for the password DB and security realm.
+    tmp_conf_file=$(mktemp -t svnserve.conf.XXXXXXXX)
+    passwd_db=$(escape_slashes $SVN_PASSWD_DB)
+
+    cat "${conf_file}" |
+        sed --regexp-extended --expression "s/^# (a...-access)/\1/" |
+        sed --regexp-extended --expression "s/^# (password-db =).*$/\1 ${passwd_db}/" |
+        sed --regexp-extended --expression "s/^# (realm =).*$/\1 ${SVN_REALM}/" >"${tmp_conf_file}"
+
+    # Use cp instead of mv to preserve the group name.
+    /bin/cp --force "${tmp_conf_file}" "${conf_file}"
+    rm --force "${tmp_conf_file}"
+
+    # Lock down the conf/ directory and assign ownership of the repository.
+    chmod --recursive go= "${conf_dir}"
+    chown --recursive "${svnserve}" "${repo_dir}"
+else
+    echo_err "The ${svnserve} account does not exist."
+    exit 1
+fi
