@@ -1,0 +1,39 @@
+#!/bin/bash
+# $Id$
+#
+# Decrypt the previously encrypted (with encrypt-for-dvd) files in the the
+# source directory that begin with the given archive name and place the results
+# in the destination directory, which will be created if necessary, and should
+# be empty otherwise.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 3 3 '<source-directory> <destination-directory> <archive-name>'
+
+source="${1}"
+sink="${2}"
+archive="${3}"
+
+if [[ ! -d "${source}" ]] ; then
+    echo_err "Source directory ${source} does not exist."
+    exit 1
+fi
+
+if [[ ! -d "${sink}" || ! -w "${sink}" ]] ; then
+    mkdir "${sink}" 2>/dev/null
+
+    if [[ $? -ne 0 ]] ; then
+        echo_err "Can't create destination directory ${sink}."
+        exit 1
+    fi
+fi
+
+# Re-combine all matching archive files into a single file, decrypt the results
+# into a tarball, and then unpack that into the destination directory.
+cat "${source}/${archive}"*.tar.gpg.* |
+    gpg --decrypt --no-mdc-warning --no-use-agent --quiet |
+    tar --extract --directory "${sink}"
