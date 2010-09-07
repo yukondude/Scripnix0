@@ -17,8 +17,8 @@ check_arg_count ${0} ${#} 3 3 '<source-directory-path> <destination-directory> <
 
 source="${1}"
 sink="${2}"
+archive="${3}"
 today=$(date +%Y%m%d)
-archive="${3}-${today}"
 
 if [[ ! -d "${source}" ]] ; then
     echo_err "Source directory ${source} does not exist."
@@ -34,13 +34,13 @@ if [[ ! -d "${sink}" || ! -w "${sink}" ]] ; then
     fi
 fi
 
-# Clean up any existing files with today's date.
+# Clean up any existing encrypted files with the same archive name.
 cd "${sink}"
-rm --force "${archive}.tar.gpg.*"
+rm --force "${archive}"-*.tar.gpg.*
 
 # Tar the source directory files together, encrypt the tarball, and split the
 # output for DVD all in one step to avoid hefty intermediate files.
 cd "${source}"
 tar --create --preserve-permissions --to-stdout * |
     gpg --compress-algo none --no-use-agent --no-secmem-warning --symmetric |
-    split --bytes 2200m --numeric-suffixes --suffix-length 1 - "${sink}/${archive}.tar.gpg."
+    split --bytes 2200m --numeric-suffixes --suffix-length 1 - "${sink}/${archive}-${today}.tar.gpg."
