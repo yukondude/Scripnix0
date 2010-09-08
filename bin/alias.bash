@@ -15,6 +15,7 @@ alias ls='ls --color=tty'
 alias ll='ls -l --color=tty --time-style=long-iso'
 alias la='ls -l --almost-all --color=tty --time-style=long-iso'
 alias lh='ls -l --human-readable --color=tty --time-style=long-iso'
+alias lm='ls -l --block-size=1024K --color=tty --time-style=long-iso'
 alias lt='ls -lt --color=tty --time-style=long-iso'
 alias lrt='ls -lrt --color=tty --time-style=long-iso'
 
