@@ -2,7 +2,7 @@
 # $Id$
 #
 # Remove files under the given directory and matching the supplied filespec
-# (in parentheses if wildcards are specified) that are at least the given
+# (in quotes if wildcards are specified) that are at least the given
 # number of days old. The date calculation uses midnight of the current day
 # so yesterday would be 1 day old, and any file created after midnight today
 # would be 0 days old.
