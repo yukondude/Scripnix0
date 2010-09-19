@@ -1,0 +1,21 @@
+#!/bin/bash
+# $Id$
+#
+# Remove all but a given number of files that match the provided filespec
+# (in quotes if wildcards are specified), so that the remaining files have the
+# most recent modification times. If the filespec is omitted, perform the
+# operation on all files in the current directory.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 1 2 '<number-to-keep> [<filespec>]'
+
+keep="${1}"
+keep=$(( keep+1 ))
+filespec="${2:-*}"
+
+ls -1t ${filespec} | tail --lines +"${keep}" | xargs -I{} rm --force {}
