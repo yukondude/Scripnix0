@@ -1,0 +1,110 @@
+#!/bin/bash
+# $Id$
+#
+# Convert the given Markdown text file into print-ready HTML and PDF files using
+# the supporting files from the specified style, or the default style if
+# unspecified. Markdown source files should ideally use the .md.txt extension.
+# The Markdown conversion tool must be installed, and for PDF generation, the 
+# wkhtmltopdf tool is required. New styles can be created, using the default
+# style (/etc/scripnix/style/default) as a template.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 1 2 '[<style>] <Markdown-text-file>'
+
+# Lots of things can go wrong, so check 'em all.
+if [[ ${#} -eq 1 ]] ; then
+    style_dir="${PUBLISH_STYLE_DIR}/default"
+    source="${1}"
+else
+    style_dir="${PUBLISH_STYLE_DIR}/${1}"
+    source="${2}"
+fi
+
+if [[ ! -d "${style_dir}" ]] ; then
+    echo_err "Style directory ${style_dir} does not exist."
+    exit 1
+fi
+
+if [[ ! -f "${source}" ]] ; then
+    echo_err "Markdown text file ${source} does not exist."
+    exit 1
+fi
+
+markdown_exists=$(which markdown)
+
+if [[ -z "${markdown_exists}" ]] ; then
+    echo_err "Markdown converter is not installed."
+    echo_err "Visit http://daringfireball.net/projects/markdown/ to download."
+    exit 1
+fi
+
+source_name=$(basename "${source}" .md.txt)
+publish_dir=$(dirname "${source}")
+sink=$(mktemp)
+scratch=$(mktemp)
+
+# Write out the HTML header.
+if [[ -f "${style_dir}"/header-prefix.html ]] ; then
+    cat "${style_dir}"/header-prefix.html >>"${sink}"
+fi
+
+if [[ -f "${style_dir}"/style.css ]] ; then
+    cat "${style_dir}"/style.css >>"${sink}"
+fi
+
+if [[ -f "${style_dir}"/header-suffix.html ]] ; then
+    cat "${style_dir}"/header-suffix.html >>"${sink}"
+fi
+
+# Run an optional pre-Markup content filter.
+if [[ -f "${style_dir}"/pre-markdown.awk ]] ; then
+    awk --file "${style_dir}"/pre-markdown.awk --re-interval "${source}" >>"${scratch}"
+else
+    cp --force "${source}" "${scratch}"
+fi
+
+# Strip out any Unicode BOM prefix and write out the converted content.
+markdown_switches=$(collect_switches "${style_dir}"/markdown.conf)
+sed --expression '1s/^\xef\xbb\xbf//' "${scratch}" |
+    markdown ${markdown_switches} >>"${sink}"
+
+# Write out the HTML footer.
+if [[ -f "${style_dir}"/footer.html ]] ; then
+    cat "${style_dir}"/footer.html >>"${sink}"
+fi
+
+# Use the <h1> text as the title, or the filename if it can't be found.
+title=$(sed -nre 's/<h1>(.+)<\/h1>/\1/p' "${sink}")
+title="${title:-$source_name}"
+
+# Replace any template title or year tags and write out the converted HTML.
+year=$(date +%Y)
+sed --expression "s/@@@TITLE@@@/${title}/g" --regexp-extended "${sink}" |
+    sed --expression "s/@@@YEAR@@@/${year}/g" --regexp-extended >"${scratch}"
+
+# Run an optional post-Markup content filter.
+if [[ -f "${style_dir}"/post-markdown.awk ]] ; then
+    awk --file "${style_dir}"/post-markdown.awk --re-interval "${scratch}" >"${publish_dir}/${source_name}.html"
+else
+    cp --force "${scratch}" "${publish_dir}/${source_name}.html"
+fi
+
+rm --force "${sink}"
+rm --force "${scratch}"
+
+wkhtmltopdf_exists=$(which wkhtmltopdf)
+
+if [[ -z "${wkhtmltopdf_exists}" ]] ; then
+    echo_err "Wkhtmltopdf converter is not installed. Only HTML has been generated."
+    exit 0
+fi
+
+# Convert generated HTML to PDF. The eval is needed to deal with quotes that
+# might appear in wkhtmltopdf_switches.
+wkhtmltopdf_switches=$(collect_switches "${style_dir}"/wkhtmltopdf.conf)
+eval "wkhtmltopdf ${wkhtmltopdf_switches} \"${publish_dir}/${source_name}.html\" \"${publish_dir}/${source_name}.pdf\""

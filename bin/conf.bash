@@ -23,5 +23,8 @@ FIND_SVN_PATH_EXCLUDE='-path /dev -prune'
 # Default NTP server for ntpdate command.
 NTPDATE_SERVER='time.nrc.ca'
 
+# Default parent directory for publish-related script styles.
+PUBLISH_STYLE_DIR='/etc/scripnix/style'
+
 # Subversion respository parent directory.
 SVN_REPO_DIR='/var/lib/svn'

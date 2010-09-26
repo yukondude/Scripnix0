@@ -27,6 +27,16 @@ function check_arg_count() {
     fi
 }
 
+# Collect switches from a file and return as a single space-delimited string
+# (with redundant spaces stripped).
+function collect_switches() {
+    switch_file="${1}"
+    if [[ ! -f "${switch_file}" ]] ; then exit 0 ; fi
+    cat "${switch_file}" |
+        tr '\n' ' ' |
+        sed --expression 's/  +/ /g' --regexp-extended
+}
+
 # Echo to standard error.
 function echo_err() {
     echo "$*" >&2

@@ -18,6 +18,9 @@ sbin_config_file="${config_path}/sconf.bash"
 archive_exclusion_file="${config_path}/archive-exclusions"
 archive_paths_directory="${config_path}/archive-paths"
 archive_paths_readme_file="${archive_paths_directory}/README"
+publish_style_directory="${config_path}/style"
+publish_default_style_directory="${publish_style_directory}/default"
+
 host=$(echo ${HOSTNAME:-local} | tr '[:upper:]' '[:lower:]')
 
 # Create the systemwide configuration directory.
@@ -87,4 +90,23 @@ chmod ag=r,o= "${archive_paths_readme_file}"
 if [[ ! -h "${sbin_dir}/service" ]] ; then
     cd "${sbin_dir}"
     ln -s "${sbin_dir}/control-service" service
+fi
+
+# Create the default publishing style files.
+if [[ ! -d "${publish_style_directory}" ]] ; then
+    mkdir "${publish_style_directory}"
+fi
+
+if [[ ! -d "${publish_default_style_directory}" ]] ; then
+    mkdir "${publish_default_style_directory}"
+    cd "${publish_default_style_directory}"
+    echo '<!DOCTYPE html><html lang="en"><head><title>@@@TITLE@@@</title><meta charset="utf-8"><style>' >header-prefix.html
+    echo '</style></head><body><!-- BEGIN Markdown content. -->' >header-suffix.html
+    echo '<!-- END Markdown content. --></body></html>' >footer.html
+    echo 'body { font-family: helvetica,arial,sans-serif; }' >style.css
+    echo -e "--page-size Letter\n--quiet" >wkhtmltopdf.conf
+    echo '--html4tags' >markdown.conf
+    echo '{print}' >pre-markdown.awk
+    echo '{print}' >post-markdown.awk
+    cd - >/dev/null
 fi
