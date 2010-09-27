@@ -65,7 +65,7 @@ fi
 if [[ -f "${style_dir}"/pre-markdown.awk ]] ; then
     awk --file "${style_dir}"/pre-markdown.awk --re-interval "${source}" >>"${scratch}"
 else
-    cp --force "${source}" "${scratch}"
+    cat "${source}" >"${scratch}"
 fi
 
 # Strip out any Unicode BOM prefix and write out the converted content.
@@ -91,7 +91,7 @@ sed --expression "s/@@@TITLE@@@/${title}/g" --regexp-extended "${sink}" |
 if [[ -f "${style_dir}"/post-markdown.awk ]] ; then
     awk --file "${style_dir}"/post-markdown.awk --re-interval "${scratch}" >"${publish_dir}/${source_name}.html"
 else
-    cp --force "${scratch}" "${publish_dir}/${source_name}.html"
+    cat "${scratch}" >"${publish_dir}/${source_name}.html"
 fi
 
 rm --force "${sink}"
