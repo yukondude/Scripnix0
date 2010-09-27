@@ -82,6 +82,14 @@ fi
 title=$(sed -nre 's/<h1>(.+)<\/h1>/\1/p' "${sink}")
 title="${title:-$source_name}"
 
+# Add an optional dot suffix to the generated filenames.
+if [[ -f "${style_dir}"/suffix ]] ; then
+    suffix=$(cat "${style_dir}"/suffix)
+    suffix=".${suffix}"
+else
+    suffix=""
+fi
+
 # Replace any template title or year tags and write out the converted HTML.
 year=$(date +%Y)
 sed --expression "s/@@@TITLE@@@/${title}/g" --regexp-extended "${sink}" |
@@ -89,9 +97,9 @@ sed --expression "s/@@@TITLE@@@/${title}/g" --regexp-extended "${sink}" |
 
 # Run an optional post-Markup content filter.
 if [[ -f "${style_dir}"/post-markdown.awk ]] ; then
-    awk --file "${style_dir}"/post-markdown.awk --re-interval "${scratch}" >"${publish_dir}/${source_name}.html"
+    awk --file "${style_dir}"/post-markdown.awk --re-interval "${scratch}" >"${publish_dir}/${source_name}${suffix}.html"
 else
-    cat "${scratch}" >"${publish_dir}/${source_name}.html"
+    cat "${scratch}" >"${publish_dir}/${source_name}${suffix}.html"
 fi
 
 rm --force "${sink}"
@@ -107,4 +115,4 @@ fi
 # Convert generated HTML to PDF. The eval is needed to deal with quotes that
 # might appear in wkhtmltopdf_switches.
 wkhtmltopdf_switches=$(collect_switches "${style_dir}"/wkhtmltopdf.conf)
-eval "wkhtmltopdf ${wkhtmltopdf_switches} \"${publish_dir}/${source_name}.html\" \"${publish_dir}/${source_name}.pdf\""
+eval "wkhtmltopdf ${wkhtmltopdf_switches} \"${publish_dir}/${source_name}${suffix}.html\" \"${publish_dir}/${source_name}${suffix}.pdf\""
