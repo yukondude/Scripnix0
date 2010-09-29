@@ -82,10 +82,10 @@ fi
 title=$(sed -nre 's/<h1>(.+)<\/h1>/\1/p' "${sink}")
 title="${title:-$source_name}"
 
-# Add an optional dot suffix to the generated filenames.
+# Add an optional suffix to the generated filenames.
 if [[ -f "${style_dir}"/suffix ]] ; then
     suffix=$(cat "${style_dir}"/suffix)
-    suffix=".${suffix}"
+    suffix="-${suffix}"
 else
     suffix=""
 fi
