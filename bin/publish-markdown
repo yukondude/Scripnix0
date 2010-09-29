@@ -19,10 +19,10 @@ check_arg_count ${0} ${#} 1 2 '[<style>] <Markdown-text-file>'
 # Lots of things can go wrong, so check 'em all.
 if [[ ${#} -eq 1 ]] ; then
     style_dir="${PUBLISH_STYLE_DIR}/default"
-    source="${1}"
+    markdown_source="${1}"
 else
     style_dir="${PUBLISH_STYLE_DIR}/${1}"
-    source="${2}"
+    markdown_source="${2}"
 fi
 
 if [[ ! -d "${style_dir}" ]] ; then
@@ -30,7 +30,7 @@ if [[ ! -d "${style_dir}" ]] ; then
     exit 1
 fi
 
-if [[ ! -f "${source}" ]] ; then
+if [[ ! -f "${markdown_source}" ]] ; then
     echo_err "Markdown text file ${source} does not exist."
     exit 1
 fi
@@ -43,44 +43,69 @@ if [[ -z "${markdown_exists}" ]] ; then
     exit 1
 fi
 
-source_name=$(basename "${source}" .md.txt)
-publish_dir=$(dirname "${source}")
-sink=$(mktemp)
-scratch=$(mktemp)
+markdown_name=$(basename "${markdown_source}" .md.txt)
+publish_dir=$(dirname "${markdown_source}")
+html_work=$(mktemp)
+markdown_work=$(mktemp)
+scratch_in=$(mktemp)
+scratch_out=$(mktemp)
 
-# Write out the HTML header.
+# Write out the beginning of the HTML header.
 if [[ -f "${style_dir}"/header-prefix.html ]] ; then
-    cat "${style_dir}"/header-prefix.html >>"${sink}"
+    cat "${style_dir}"/header-prefix.html >>"${html_work}"
 fi
 
-if [[ -f "${style_dir}"/style.css ]] ; then
-    cat "${style_dir}"/style.css >>"${sink}"
-fi
+# Insert all CSS stylesheet files, in order.
+for css in "${style_dir}"/style*.css ; do
+    cat $css >>"${html_work}"
+done
 
+# Write out the rest of the HTML header.
 if [[ -f "${style_dir}"/header-suffix.html ]] ; then
-    cat "${style_dir}"/header-suffix.html >>"${sink}"
+    cat "${style_dir}"/header-suffix.html >>"${html_work}"
 fi
 
-# Run an optional pre-Markup content filter.
-if [[ -f "${style_dir}"/pre-markdown.awk ]] ; then
-    awk --file "${style_dir}"/pre-markdown.awk --re-interval "${source}" >>"${scratch}"
-else
-    cat "${source}" >"${scratch}"
+# Strip out any Unicode BOM prefix from the Markdown.
+sed --expression '1s/^\xef\xbb\xbf//' "${markdown_source}" >"${markdown_work}"
+
+# Run any optional pre-Markup content filters.
+cat "${markdown_work}" >"${scratch_in}"
+count=$(ls "${style_dir}"/pre-markdown*.awk 2>/dev/null | wc --lines)
+
+if [[ "${count}" -ne 0 ]] ; then
+    for awk in "${style_dir}"/pre-markdown*.awk; do
+        awk --file "${awk}" --re-interval "${scratch_in}" >"${scratch_out}"
+        cat "${scratch_out}" >"${scratch_in}"
+    done
 fi
 
-# Strip out any Unicode BOM prefix and write out the converted content.
+cat "${scratch_in}" >"${markdown_work}"
+
+# Write out the converted HTML.
 markdown_switches=$(collect_switches "${style_dir}"/markdown.conf)
-sed --expression '1s/^\xef\xbb\xbf//' "${scratch}" |
-    markdown ${markdown_switches} >>"${sink}"
+markdown ${markdown_switches} "${markdown_work}" >>"${html_work}"
 
 # Write out the HTML footer.
 if [[ -f "${style_dir}"/footer.html ]] ; then
-    cat "${style_dir}"/footer.html >>"${sink}"
+    cat "${style_dir}"/footer.html >>"${html_work}"
 fi
 
+# Run any optional post-Markup content filters.
+cat "${html_work}" >"${scratch_in}"
+count=$(ls "${style_dir}"/post-markdown*.awk 2>/dev/null | wc --lines)
+
+if [[ "${count}" -ne 0 ]] ; then
+    for awk in "${style_dir}"/post-markdown*.awk; do
+        awk --file "${awk}" --re-interval "${scratch_in}" >"${scratch_out}"
+        cat "${scratch_out}" >"${scratch_in}"
+    done
+fi
+
+cat "${scratch_in}" >"${html_work}"
+
 # Use the <h1> text as the title, or the filename if it can't be found.
-title=$(sed -nre 's/<h1>(.+)<\/h1>/\1/p' "${sink}")
-title="${title:-$source_name}"
+title=$(sed --regexp-extended --expression 's/<h1>(.+)<\/h1>/\1/p' --quiet "${html_work}")
+title="${title:-$markdown_name}"
 
 # Add an optional suffix to the generated filenames.
 if [[ -f "${style_dir}"/suffix ]] ; then
@@ -92,18 +117,13 @@ fi
 
 # Replace any template title or year tags and write out the converted HTML.
 year=$(date +%Y)
-sed --expression "s/@@@TITLE@@@/${title}/g" --regexp-extended "${sink}" |
-    sed --expression "s/@@@YEAR@@@/${year}/g" --regexp-extended >"${scratch}"
+sed --regexp-extended --expression "s/@@@TITLE@@@/${title}/g" "${html_work}" |
+    sed --regexp-extended --expression "s/@@@YEAR@@@/${year}/g" >"${publish_dir}/${markdown_name}${suffix}.html"
 
-# Run an optional post-Markup content filter.
-if [[ -f "${style_dir}"/post-markdown.awk ]] ; then
-    awk --file "${style_dir}"/post-markdown.awk --re-interval "${scratch}" >"${publish_dir}/${source_name}${suffix}.html"
-else
-    cat "${scratch}" >"${publish_dir}/${source_name}${suffix}.html"
-fi
-
-rm --force "${sink}"
-rm --force "${scratch}"
+rm --force "${html_work}"
+rm --force "${markdown_work}"
+rm --force "${scratch_in}"
+rm --force "${scratch_out}"
 
 wkhtmltopdf_exists=$(which wkhtmltopdf)
 
@@ -115,4 +135,4 @@ fi
 # Convert generated HTML to PDF. The eval is needed to deal with quotes that
 # might appear in wkhtmltopdf_switches.
 wkhtmltopdf_switches=$(collect_switches "${style_dir}"/wkhtmltopdf.conf)
-eval "wkhtmltopdf ${wkhtmltopdf_switches} \"${publish_dir}/${source_name}${suffix}.html\" \"${publish_dir}/${source_name}${suffix}.pdf\""
+eval "wkhtmltopdf ${wkhtmltopdf_switches} \"${publish_dir}/${markdown_name}${suffix}.html\" \"${publish_dir}/${markdown_name}${suffix}.pdf\""
