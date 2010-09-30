@@ -1,0 +1,53 @@
+#!/bin/bash
+# $Id$
+#
+# Displays whether the given file(s) will fit on varying optical disk formats.
+# Note that there may be some discrepancy owing to recording methods.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/bin/bin.bash
+
+check_arg_count ${0} ${#} 1 -1 '<file>[...]'
+
+media[1]="74-minute CD-ROM"
+msize[1]=783216000
+media[2]="Single-layer DVD+R"
+msize[2]=4700372992
+media[3]="Single-layer DVD-R"
+msize[3]=4707319808
+media[4]="Double-layer DVD+R"
+msize[4]=8543666176
+media[5]="Double-layer DVD-R"
+msize[5]=8547991552
+media[6]="Single-layer Blue-ray"
+msize[6]=25025314816
+media[7]="Double-layer Blue-ray"
+msize[7]=50050629632
+
+while [[ -n "${1}" ]] ; do
+    file="${1}"
+    size=$(stat --format %s "${file}")
+    fits=0;
+
+    echo "File: ${file}..."
+
+    for i in 1 2 3 4 5 6 7 ; do
+       if [[ ${size} -le ${msize[i]} ]] ; then
+           echo "fits on a ${media[i]} disc"
+           fits=1
+       fi
+    done
+
+    if [[ $fits -eq 0 ]] ; then
+        echo "is too big to fit on anything"
+    fi
+
+    shift
+
+    if [[ -n "${1}" ]] ; then
+        echo
+    fi
+done
