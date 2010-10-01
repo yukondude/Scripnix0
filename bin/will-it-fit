@@ -57,5 +57,6 @@ for i in 1 2 3 4 5 6 7 ; do
        echo -n "Does not fit"
    fi
 
-   echo " on a ${media[i]} disc."
+   msize_gb=$(echo "${msize[i]}/1024/1024/1024" | bc -l)
+   printf " on a %s disc (%0.1fGB).\n" "${media[i]}" ${msize_gb}
 done
