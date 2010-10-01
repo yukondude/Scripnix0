@@ -13,8 +13,8 @@ source /usr/local/bin/bin.bash
 
 check_arg_count ${0} ${#} 1 -1 '<file>[...]'
 
-media[1]="74-minute CD-ROM"
-msize[1]=783216000
+media[1]="80-minute CD-ROM"
+msize[1]=736970752
 media[2]="Single-layer DVD+R"
 msize[2]=4700372992
 media[3]="Single-layer DVD-R"
