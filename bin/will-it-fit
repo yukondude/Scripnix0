@@ -47,16 +47,17 @@ if [[ ${count} -ne 1 ]] ; then echo -n "The set of files" ; else echo -n "The fi
 echo ": ${files}"
 printf "With a total size of: %dB = %0.1fKB = %0.1fMB = %0.1fGB\n" ${total_b} ${total_kb} ${total_mb} ${total_gb}
 
-fits=0
-
 for i in 1 2 3 4 5 6 7 ; do
    if [[ ${total_b} -le ${msize[i]} ]] ; then
+       spare_mb=$(echo "(${msize[i]}-${total_b})/1024/1024" | bc -l)
+       to_spare=$(printf " with %0.1fMB to spare" ${spare_mb})
        echo -n "Fits"
-       fits=1
    else
+       to_spare=""
        echo -n "Does not fit"
    fi
 
    msize_gb=$(echo "${msize[i]}/1024/1024/1024" | bc -l)
-   printf " on a %s disc (%0.1fGB).\n" "${media[i]}" ${msize_gb}
+   printf " on a %s disc (%0.1fGB)" "${media[i]}" ${msize_gb}
+   echo "${to_spare}."
 done
