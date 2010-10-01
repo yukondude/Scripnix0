@@ -1,8 +1,9 @@
 #!/bin/bash
 # $Id$
 #
-# Displays whether the given file(s) will fit on varying optical disk formats.
-# Note that there may be some discrepancy owing to recording methods.
+# Displays whether the given file(s) are small enough, in total, to fit on
+# various optical disk formats. There may be some discrepancy owing to recording
+# methods.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
@@ -27,27 +28,32 @@ msize[6]=25025314816
 media[7]="Double-layer Blue-ray"
 msize[7]=50050629632
 
+files="$*"
+total_b=0
+
 while [[ -n "${1}" ]] ; do
     file="${1}"
     size=$(stat --format %s "${file}")
-    fits=0;
-
-    echo "File: ${file}..."
-
-    for i in 1 2 3 4 5 6 7 ; do
-       if [[ ${size} -le ${msize[i]} ]] ; then
-           echo "fits on a ${media[i]} disc"
-           fits=1
-       fi
-    done
-
-    if [[ $fits -eq 0 ]] ; then
-        echo "is too big to fit on anything"
-    fi
-
+    total_b=$(( total + size ))
     shift
-
-    if [[ -n "${1}" ]] ; then
-        echo
-    fi
 done
+
+total_kb=$(echo "${total_b}/1024" | bc -l)
+total_mb=$(echo "${total_kb}/1024" | bc -l)
+total_gb=$(echo "${total_mb}/1024" | bc -l)
+
+echo "The file(s): ${files}"
+printf "With a total size of: %dB = %0.1fKB = %0.1fMB = %0.1fGB\n" $total_b $total_kb $total_mb $total_gb
+
+fits=0
+
+for i in 1 2 3 4 5 6 7 ; do
+   if [[ ${total_b} -le ${msize[i]} ]] ; then
+       echo "fits on a ${media[i]} disc"
+       fits=1
+   fi
+done
+
+if [[ $fits -eq 0 ]] ; then
+    echo "is too big to fit on anything"
+fi
