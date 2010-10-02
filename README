@@ -26,20 +26,18 @@ You may want to copy back any files from bin.old/ and sbin.old/ to the new bin/
 and sbin/ symlinked directories. They will be ignored by future Subversion
 updates to Scripnix.
 
-To update the Scripnix files, execude the following commands as root:
+To update the Scripnix files, run the following command as root:
 
-# cd /usr/local/scripnix
-# svn update
+# svn update /usr/local/scripnix
 
 Installation without using Subversion
 -------------------------------------
 
 Download the Scripnix tarball to a scratch directory and unpack it. Copy the
 contents of the bin/ and sbin/ directories to /usr/local/bin/ and /usr/local/sbin/
-respectively. Then run the following commands as root:
+respectively. Then run the following command as root:
 
-# cd /usr/local/sbin/
-# install-scripnix
+# /usr/local/sbin/install-scripnix
 
 To update the Scripnix files, download the new tarball and replace the files in
 /usr/local/bin/ and /usr/local/sbin/ with their new versions.
