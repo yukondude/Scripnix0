@@ -34,7 +34,13 @@ total_b=0
 
 while [[ -n "${1}" ]] ; do
     file="${1}"
-    size=$(stat --format %s "${file}")
+
+    if [[ -d "${file}" ]] ; then
+        size=$(du --bytes --summarize "${file}" | cut --fields 1)
+    else
+        size=$(stat --format %s "${file}")
+    fi
+
     total_b=$(( total_b + size ))
     shift
 done
