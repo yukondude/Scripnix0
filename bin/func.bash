@@ -8,7 +8,7 @@
 
 # Exit with error message if the count of command arguments does not fall into
 # the expected range. Use -1 to indicate no minimum/maximum.
-# Example call: check_arg_count ${0} ${#} 2 2 '<arg1> <arg2>'
+# Example call: check_arg_count ${0} ${#} 2 2 '<arg1> <arg2>' ${1}
 function check_arg_count() {
     # Parameters:
     command=${1}
@@ -16,12 +16,20 @@ function check_arg_count() {
     min_count=${3}
     max_count=${4}
     usage=${5}
+    first=${6}
+    is_err=0
 
     if [[ ${max_count} -lt 0 ]] ; then
         max_count=9999 # infinity!
     fi
 
-    if [[ ${arg_count} -lt ${min_count} || ${arg_count} -gt ${max_count} ]] ; then
+    if [[ -n ${first} ]] ; then
+        if [[ ${first} == '-h' || ${first} == '--help' || ${first} == '?' || ${first} == '-?' ]] ; then
+            is_err=1
+        fi
+    fi
+
+    if [[ ${arg_count} -lt ${min_count} || ${arg_count} -gt ${max_count} || ${is_err} -ne 0 ]] ; then
         echo_err "Usage:" $(basename ${command}) "${usage}"
         echo >&2
         sed --quiet --regexp-extended --expression '/^#$/,/^#$/p' "${command}" |
