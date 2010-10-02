@@ -9,6 +9,8 @@
 
 source /usr/local/sbin/sbin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 # Given a stream of crontab lines, exclude non-cron job lines, replace
 # whitespace characters with a single space, and remove any spaces from the
 # beginning of each line.

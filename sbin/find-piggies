@@ -9,7 +9,7 @@
 
 source /usr/local/sbin/sbin.bash
 
-check_arg_count ${0} ${#} 0 1 '[<minimum-file-size-in-mb>]'
+check_arg_count ${0} ${#} 0 1 '[<minimum-file-size-in-mb>]' ${1}
 
 if [[ -n "${1}" ]] ; then
     min_size_kb=$(( ${1} * 1024 ))

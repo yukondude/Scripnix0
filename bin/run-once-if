@@ -3,13 +3,13 @@
 #
 # Run the given command at most once per day, provided the specified condition
 # is true (returns an exit code of 0).
-#
+# 
 # For example, to synchronize the time once per day, but only if the network
 # is operational, you could schedule the following as a command in your
 # [ana]crontab file to run every hour:
-#
+# 
 # run-once-if is-network-up 'ntpdate time.nrc.ca'
-#
+# 
 # It will only run once each day, just as soon as the network is up.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
@@ -18,7 +18,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 2 2 '<condition> <command>'
+check_arg_count ${0} ${#} 2 2 '<condition> <command>' ${1}
 
 condition="${1}"
 command="${2}"

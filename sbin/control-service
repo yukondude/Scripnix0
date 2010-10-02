@@ -9,11 +9,13 @@
 
 source /usr/local/sbin/sbin.bash
 
+check_arg_count ${0} ${#} 1 2 '<rc init script> <action>' ${1}
+
 function show_available_rc() {
     # Display the list of executable scripts in the rc init directory.
     echo_err
     echo_err "The following rc init scripts are available in ${RC_DIR}:"
-    find "${RC_DIR}/" -maxdepth 1 -type f -perm -u+x -exec basename {} \; | sort | column >&2
+    find "${RC_DIR}/" -maxdepth 1 -type l -o -type f -perm -u+x -exec basename {} \; | sort | column >&2
 }
 
 if [[ -x "/usr/sbin/service" ]] ; then
@@ -32,13 +34,6 @@ else
         echo_err "Unknown rc init script: ${RC_DIR}/${1}."
         show_available_rc
         exit 1
-    fi
-
-    if [[ ${#} -lt 1 || ${#} -gt 2 ]] ; then
-        # Wrong number of arguments. Allow one argument so rc init script will
-        # show possible actions.
-        echo_err "Usage:" $(basename ${0}) "<rc init script> <action>"
-        exit 2
     fi
 
     # Run the damned script already.

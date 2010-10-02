@@ -12,7 +12,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 2 '<number-to-keep> [<filespec>]'
+check_arg_count ${0} ${#} 1 2 '<number-to-keep> [<filespec>]' ${1}
 
 keep="${1}"
 keep=$(( keep+1 ))

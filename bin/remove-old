@@ -6,15 +6,15 @@
 # number of days old. The date calculation uses midnight of the current day
 # so yesterday would be 1 day old, and any file created after midnight today
 # would be 0 days old.
-#
+# 
 # If a file is being written every day and you only want to keep X of them at a
 # time, then it may be more intuitive to just use the value X for the days
 # parameter.
-#
+# 
 # For example, the command:
-#
+# 
 # remove-old 2 /var/log/ 'apache*log'
-#
+# 
 # would delete all files matching "apache*log" in or under the /var/log/
 # directory that are at least 2 days old (created on or before the day before
 # yesterday). Or, if these log files are written once each day (scheduled before
@@ -26,7 +26,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 3 3 '<days> <directory> <filespec>'
+check_arg_count ${0} ${#} 3 3 '<days> <directory> <filespec>' ${1}
 
 days="${1}"
 directory="${2}"

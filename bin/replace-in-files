@@ -11,7 +11,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 2 -1 '<regexp> <file>[...]'
+check_arg_count ${0} ${#} 2 -1 '<regexp> <file>[...]' ${1}
 
 regexp="${1}"
 shift

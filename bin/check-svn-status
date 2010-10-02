@@ -9,6 +9,8 @@
 
 source /usr/local/bin/bin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 curdir=''
 topsvndirs=''
 

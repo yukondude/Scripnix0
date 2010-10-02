@@ -9,7 +9,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 1 '<regexp>'
+check_arg_count ${0} ${#} 1 1 '<regexp>' ${1}
 
 prehash=''
 

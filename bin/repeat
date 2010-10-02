@@ -9,7 +9,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 2 -1 '<delay> <command...>'
+check_arg_count ${0} ${#} 2 -1 '<delay> <command...>' ${1}
 
 delay=${1}
 shift

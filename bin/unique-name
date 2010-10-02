@@ -11,7 +11,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 2 3 '<directory> <filename> [<extension>]'
+check_arg_count ${0} ${#} 2 3 '<directory> <filename> [<extension>]' ${1}
 
 # Remove any trailing slash.
 directory="${1%%/}"

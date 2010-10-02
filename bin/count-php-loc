@@ -10,7 +10,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 0 1 '[<directory>]'
+check_arg_count ${0} ${#} 0 1 '[<directory>]' ${1}
 
 loc_dir=${1:-.}
 extensions='php html css tpl'

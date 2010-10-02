@@ -10,6 +10,8 @@
 
 source /usr/local/bin/bin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 # Awk script uses "." for field delimiter. Truncate IP addresses to first two
 # quads. Truncate Country TLDs to last two or three terms. Truncate all
 # remaining to last two terms.
@@ -18,7 +20,8 @@ BEGIN {FS="."}
 /[0-9]$/ {print $1 "." $2 ".0.0/16"; next}
 /\.(com|org|net|edu|gov|mil|[^.][^.])\.[^.][^.]$/ {print $(NF-2) "." $(NF-1) "." $NF; next}
 {print $(NF-1) "." $NF}
-EOF)
+EOF
+)
 
 while read fqdn remaining; do
     truncated_fqdn=$(awk "${truncate}" <(echo "${fqdn}"))

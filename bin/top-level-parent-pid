@@ -10,7 +10,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 0 1 '[<pid>]'
+check_arg_count ${0} ${#} 0 1 '[<pid>]' ${1}
 
 function top_level_parent_pid {
     # Look up the parent of the given PID.

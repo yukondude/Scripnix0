@@ -14,7 +14,7 @@
 
 source /usr/local/sbin/sbin.bash
 
-check_arg_count ${0} ${#} 1 2 '<repository-name> [<svnserve-account>]'
+check_arg_count ${0} ${#} 1 2 '<repository-name> [<svnserve-account>]' ${1}
 
 repo_name="${1}"
 svnserve="${2:-svnserve}"

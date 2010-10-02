@@ -11,7 +11,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 0 1 '[<host>]'
+check_arg_count ${0} ${#} 0 1 '[<host>]' ${1}
 
 if [ -n "${1}" ] ; then
     host="${1}"

@@ -10,6 +10,8 @@
 
 source /usr/local/bin/bin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 # This is a remote connection if the top-level parent process is the SSH daemon.
 parent=$(command-for-pid $(top-level-parent-pid))
 match=$(echo "${parent}" | egrep sshd)

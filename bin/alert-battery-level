@@ -19,7 +19,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 3 3 'charging|discharging <level> <alarm>'
+check_arg_count ${0} ${#} 3 3 'charging|discharging <level> <alarm>' ${1}
 
 state="${1}"
 threshold="${2}"

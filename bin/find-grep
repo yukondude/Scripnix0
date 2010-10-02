@@ -11,7 +11,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 2 '[<directory>] <regexp>'
+check_arg_count ${0} ${#} 1 2 '[<directory>] <regexp>' ${1}
 
 if [ ${#} -eq 2 ] ; then
     directory="${1}"

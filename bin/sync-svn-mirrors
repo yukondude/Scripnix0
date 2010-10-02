@@ -10,6 +10,8 @@
 
 source /usr/local/bin/bin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 for repository in $(find "${SVN_REPO_DIR}/" -maxdepth 1 -mindepth 1 -type d -name '*mirror' -print) ; do
     repository=$(basename "${repository}")
     echo "Synchronizing ${repository}"

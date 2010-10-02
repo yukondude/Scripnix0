@@ -11,6 +11,8 @@
 
 source /usr/local/sbin/sbin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 # With each symlink in the archive-paths/ directory, process the link's name
 # and target (linkpath).
 while read linkname linkpath ; do

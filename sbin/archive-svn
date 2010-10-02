@@ -10,6 +10,8 @@
 
 source /usr/local/sbin/sbin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 # Prepare the temporary dump directory and restrict access to the owner.
 tmp_dir=$(mktemp -dt 'archive-XXXXXXXX')
 chmod go= "${tmp_dir}"

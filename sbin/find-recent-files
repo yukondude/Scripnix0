@@ -9,4 +9,6 @@
 
 source /usr/local/sbin/sbin.bash
 
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
 find / ${FIND_PATH_EXCLUDE} -or -type f -mmin -60 -ls | sort -k9,10

@@ -11,7 +11,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 -1 '<filetype>[...]'
+check_arg_count ${0} ${#} 1 -1 '<filetype>[...]' ${1}
 
 # Build a string of types to include.
 include_types=''

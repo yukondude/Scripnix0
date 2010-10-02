@@ -10,7 +10,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 -1 '<file>[...]'
+check_arg_count ${0} ${#} 1 -1 '<file>[...]' ${1}
 
 while [ -n "${1}" ] ; do
     original_file_path="${1}"

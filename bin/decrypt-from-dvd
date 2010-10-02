@@ -12,7 +12,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 3 3 '<source-directory> <destination-directory> <archive-name>'
+check_arg_count ${0} ${#} 3 3 '<source-directory> <destination-directory> <archive-name>' ${1}
 
 source="${1}"
 sink="${2}"

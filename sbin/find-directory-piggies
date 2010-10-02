@@ -10,7 +10,7 @@
 
 source /usr/local/sbin/sbin.bash
 
-check_arg_count ${0} ${#} 0 1 '[<minimum-directory-size-in-mb>]'
+check_arg_count ${0} ${#} 0 1 '[<minimum-directory-size-in-mb>]' ${1}
 
 declare -i min_size_kb
 declare -i dir_size_kb

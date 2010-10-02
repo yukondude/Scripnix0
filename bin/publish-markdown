@@ -14,7 +14,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 2 '[<style>] <Markdown-text-file>'
+check_arg_count ${0} ${#} 1 2 '[<style>] <Markdown-text-file>' ${1}
 
 # Lots of things can go wrong, so check 'em all.
 if [[ ${#} -eq 1 ]] ; then

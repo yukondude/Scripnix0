@@ -10,7 +10,7 @@
 
 source /usr/local/sbin/sbin.bash
 
-check_arg_count ${0} ${#} 0 0 ''
+check_arg_count ${0} ${#} 0 0 '' ${1}
 
 for package in $(deborphan) ; do
     apt-get --quiet=2 --yes purge "${package}"

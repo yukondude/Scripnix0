@@ -3,11 +3,11 @@
 #
 # Export the given Subversion project into a gzipped tarball in the current
 # directory, named for the project, version, and Subversion revision number.
-#
+# 
 # For example, to package version 1.0 of the Scripnix project into a file
 # named scripnix-1.0.XX.tgz ("XX" will be replaced with the Subversion revision
 # number):
-#
+# 
 # package-svn-project scripnix 1.0 http://scripnix.googlecode.com/svn/trunk/
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
@@ -16,7 +16,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 3 3 '<project> <version> <svn-url>'
+check_arg_count ${0} ${#} 3 3 '<project> <version> <svn-url>' ${1}
 
 project="${1}"
 version="${2}"
