@@ -17,12 +17,16 @@ function check_arg_count() {
     max_count=${4}
     usage=${5}
 
-    if [ ${max_count} -lt 0 ] ; then
+    if [[ ${max_count} -lt 0 ]] ; then
         max_count=9999 # infinity!
     fi
 
-    if [ ${arg_count} -lt ${min_count} -o ${arg_count} -gt ${max_count} ] ; then
+    if [[ ${arg_count} -lt ${min_count} || ${arg_count} -gt ${max_count} ]] ; then
         echo_err "Usage:" $(basename ${command}) "${usage}"
+        echo >&2
+        sed --quiet --regexp-extended --expression '/^#$/,/^#$/p' "${command}" |
+            sed '/^#$/d' |
+            cut -c3- >&2
         exit 1
     fi
 }

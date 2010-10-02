@@ -6,10 +6,10 @@
 # this script as part of a regular cron job so that it runs periodically. For
 # example, add these two lines (with alarm sounds, perhaps from
 # /usr/share/sounds/) to your account's crontab:
-#
+# 
 # *   * * * * /usr/local/bin/alert-battery-level discharging 10 <sound-file>
 # */5 * * * * /usr/local/bin/alert-battery-level charging 95 <sound-file>
-#
+# 
 # (I like to be alerted of a charged battery so that I can unplug and prolong
 # the battery's life.)
 #
