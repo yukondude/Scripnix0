@@ -11,7 +11,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 1 -1 '<file>[...]'
+check_arg_count ${0} ${#} 1 -1 '<file>[...]' ${1}
 
 media[1]="80-minute CD-ROM"
 msize[1]=736970752
@@ -38,6 +38,10 @@ while [[ -n "${1}" ]] ; do
     total_b=$(( total_b + size ))
     shift
 done
+
+if [[ ${total_b} -eq 0 ]] ; then
+    exit 1
+fi
 
 total_kb=$(echo "${total_b}/1024" | bc -l)
 total_mb=$(echo "${total_kb}/1024" | bc -l)
