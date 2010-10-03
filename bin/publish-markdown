@@ -5,8 +5,36 @@
 # the supporting files from the specified style, or the default style if
 # unspecified. Markdown source files should ideally use the .md.txt extension.
 # The Markdown conversion tool must be installed, and for PDF generation, the 
-# wkhtmltopdf tool is required. New styles can be created, using the default
-# style (/etc/scripnix/style/default) as a template.
+# wkhtmltopdf tool is required (it is skipped, otherwise). New styles can be
+# created using the default style (/etc/scripnix/style/default) as a template
+# and must be located under the PUBLISH_STYLE_DIR directory.
+# 
+# A style directory may contain some or all of the following files:
+# 
+# * header-prefix.html: The initial DOCTYPE, <html>, and <head> elements, ending
+#   an opening <style> tag.
+# * style*.css: One or more CSS files, that are inserted into the HTML in order.
+# * header-suffix.html: Begins with the closing </style> tag and includes any
+#   other <head> elements before closing </head> and opening <body>.
+# * footer.html: Includes any final elements before closing </body> and </html>.
+# * pre-markdown*.awk: One or more AWK files to process or filter the raw
+#   Markdown text before it is inserted into the HTML, run in order.
+# * post-markdown*.awk: One or more AWK files to process or filter the generated
+#   HTML document, run in order.
+# * suffix: The contents of this file will be inserted between the Markdown
+#   source filename and the file extension in generated HTML and PDF files.
+# * markdown.conf: the command-line switches to use for the markdown command.
+# * wkhtmltopdf.conf: the command-line switches to use for the wkhtmltopdf
+#   command.
+# 
+# Multiple styles may share the same files using links or symlinks. Because
+# multiple CSS files and AWK filters are permitted, a style may borrow just a
+# selection of another style's files, and even rearrange their order by
+# appropriately naming the links.
+# 
+# The optional placeholders @@@TITLE@@@ and @@@YEAR@@@ will be replaced with the
+# contents of the document's <h1> element, or the filename if not available, and
+# the current 4-digit year, respectively.
 #
 # This file is a part of Scripnix <http://scripnix.googlecode.com/>.
 # Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
