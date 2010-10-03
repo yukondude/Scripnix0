@@ -43,4 +43,4 @@ rm --force "${archive}"-*.tar.gpg.*
 cd "${source}"
 tar --create --preserve-permissions --to-stdout * |
     gpg --compress-algo none --no-use-agent --no-secmem-warning --symmetric |
-    split --bytes 2200m --numeric-suffixes --suffix-length 1 - "${sink}/${archive}-${today}.tar.gpg."
+    split --bytes 2240m --numeric-suffixes --suffix-length 1 - "${sink}/${archive}-${today}.tar.gpg."
