@@ -3,7 +3,7 @@
 #
 # Convert the specified HTML files into Markdown text-format equivalents in the
 # current working directory. The file extension will be .md.txt.
-#
+# 
 # Requires the html2text.py Python script by Aaron Swartz to convert from HTML
 # to Markdown text <http://www.aaronsw.com/2002/html2text/>.
 #

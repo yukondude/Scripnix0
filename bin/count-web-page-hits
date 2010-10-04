@@ -11,7 +11,7 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 0 2 '[<regexp>] [<!regexp>]' {$1}
+check_arg_count ${0} ${#} 0 2 '[<regexp>] [<!regexp>]' ${1}
 
 if [ -n "${1}" ] ; then
     regexp="${1}"

@@ -1,0 +1,32 @@
+#!/bin/bash
+# $Id$
+#
+# Generate descriptions of all Scripnix scripts formatted for Google Code wiki
+# pages.
+#
+# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
+# Written in 2010 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
+# This script is released into the Public Domain.
+
+source /usr/local/sbin/sbin.bash
+
+check_arg_count ${0} ${#} 0 0 '' ${1}
+
+today=$(date +%F)
+
+echo -e "#summary Descriptions of the scripts making up the Scripnix project. Phew. Try saying that five times fast.\n"
+echo -e "= Script Descriptions =\n"
+echo -e "The following was generated on ${today} by the \`describe-scripnix\` script.\n"
+
+while read script ; do
+    name=$(echo "${script}" | cut --fields 4,5 --delimiter '/') 
+    desc=$(${script} --help 2>&1)
+
+    if [[ -z "${desc}" ]] ; then
+        desc=$(sed --quiet --regexp-extended --expression '/^#$/,/^#$/p' "${script}" | sed '/^#$/d' | cut --characters 3-)
+        bname=$(basename "${script}")
+        desc="Usage: ${bname}\n\n${desc}"
+    fi
+
+    echo -e "== ${name} ==\n{{{\n${desc}\n}}}\n"
+done < <(find /usr/local/bin/ /usr/local/sbin/ -type f -executable -exec egrep --files-with-matches Scripnix {} \; | sort)
