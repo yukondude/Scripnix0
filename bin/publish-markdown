@@ -63,10 +63,8 @@ if [[ ! -f "${markdown_source}" ]] ; then
     exit 1
 fi
 
-markdown_exists=$(which markdown)
-
-if [[ -z "${markdown_exists}" ]] ; then
-    echo_err "Markdown converter is not installed."
+if [[ ! -x "${MARKDOWN_TO_HTML_COMMAND}" ]] ; then
+    echo_err "Markdown to HTML converter is not available at ${MARKDOWN_TO_HTML_COMMAND}."
     echo_err "Visit http://daringfireball.net/projects/markdown/ to download."
     exit 1
 fi
@@ -111,7 +109,7 @@ cat "${scratch_in}" >"${markdown_work}"
 
 # Write out the converted HTML.
 markdown_switches=$(collect_switches "${style_dir}"/markdown.conf)
-markdown ${markdown_switches} "${markdown_work}" >>"${html_work}"
+"${MARKDOWN_TO_HTML_COMMAND}" ${markdown_switches} "${markdown_work}" >>"${html_work}"
 
 # Write out the HTML footer.
 if [[ -f "${style_dir}"/footer.html ]] ; then

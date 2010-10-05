@@ -13,16 +13,13 @@
 
 source /usr/local/bin/bin.bash
 
-check_arg_count ${0} ${#} 2 -1 '<path-to-html2text.py> <html-file>[...]' ${1}
+check_arg_count ${0} ${#} 1 -1 '<html-file>[...]' ${1}
 
-html2text="${1}"
-
-if [ ! -r "${html2text}" ] ; then
-    echo_err $(basename "${0}") "expects path to html2text.py as first argument."
+if [ ! -r "${HTML_TO_MARKDOWN_COMMAND}" ] ; then
+    echo_err "HTML to Markdown converter is not available at ${HTML_TO_MARKDOWN_COMMAND}."
+    echo_err "Visit http://www.aaronsw.com/2002/html2text/ to download."
     exit 1
 fi
-
-shift
 
 while [ -n "${1}" ] ; do
     # Use the contents of the <title> element for the filename. In case the
@@ -40,6 +37,6 @@ while [ -n "${1}" ] ; do
     fi
 
     # Convert the HTML to Markdown, using a unique destination filename.
-    cat "${1}" | python "${html2text}" > $(unique-name . "${title}.md.txt" .md.txt)
+    cat "${1}" | python "${HTML_TO_MARKDOWN_COMMAND}" > $(unique-name . "${title}.md.txt" .md.txt)
     shift
 done

@@ -20,6 +20,10 @@ APACHE_LOG='/var/log/apache2/access.log'
 FIND_PATH_EXCLUDE='( -path /dev -or -path /proc -or -path /sys ) -prune'
 FIND_SVN_PATH_EXCLUDE='-path /dev -prune'
 
+# Paths to HTML/Markdown conversion tools.
+HTML_TO_MARKDOWN_COMMAND='/usr/bin/html2text.py'
+MARKDOWN_TO_HTML_COMMAND='/usr/bin/markdown'
+
 # Default NTP server for ntpdate command.
 NTPDATE_SERVER='time.nrc.ca'
 
