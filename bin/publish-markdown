@@ -130,7 +130,7 @@ fi
 cat "${scratch_in}" >"${html_work}"
 
 # Use the <h1> text as the title, or the filename if it can't be found.
-title=$(sed --regexp-extended --expression 's/<h1>(.+)<\/h1>/\1/p' --quiet "${html_work}")
+title=$(sed --regexp-extended --expression 's/<h1.*?>(.+)<\/h1>/\1/p' --quiet "${html_work}")
 title="${title:-$markdown_name}"
 
 # Add an optional suffix to the generated filenames.
