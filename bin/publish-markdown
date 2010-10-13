@@ -129,9 +129,11 @@ fi
 
 cat "${scratch_in}" >"${html_work}"
 
-# Use the <h1> text as the title, or the filename if it can't be found.
+# Use the <h1> text as the title, or the filename if it can't be found. Strip
+# out any HTML tags.
 title=$(sed --regexp-extended --expression 's/<h1.*?>(.+)<\/h1>/\1/p' --quiet "${html_work}")
 title="${title:-$markdown_name}"
+title=$(echo "${title}" | sed --regexp-extended --expression 's/<[^>]*>//g')
 
 # Add an optional suffix to the generated filenames.
 if [[ -f "${style_dir}"/suffix ]] ; then
