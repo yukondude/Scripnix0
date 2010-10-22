@@ -7,7 +7,9 @@
 # The Markdown conversion tool must be installed, and for PDF generation, the 
 # wkhtmltopdf tool is required (it is skipped, otherwise). New styles can be
 # created using the default style (/etc/scripnix/style/default) as a template
-# and must be located under the PUBLISH_STYLE_DIR directory.
+# and must be located under the PUBLISH_STYLE_DIR directory. If a style name
+# appears within an HTML comment in the first line of the Markdown file, that
+# style will be used as the default.
 # 
 # A style directory may contain some or all of the following files:
 # 
@@ -46,8 +48,12 @@ check_arg_count ${0} ${#} 1 2 '[<style>] <Markdown-text-file>' ${1}
 
 # Lots of things can go wrong, so check 'em all.
 if [[ ${#} -eq 1 ]] ; then
-    style_dir="${PUBLISH_STYLE_DIR}/default"
     markdown_source="${1}"
+
+    # Look for a default style in an HTML comment in the first line, or use the
+    # "default" style if not found.
+    style=$(sed --quiet --regexp-extended --expression '1s/^(\xef\xbb\xbf)?<!-- ([[:alnum:]]+) -->$/\2/p' "${markdown_source}")
+    style_dir="${PUBLISH_STYLE_DIR}/${style:-default}"
 else
     style_dir="${PUBLISH_STYLE_DIR}/${1}"
     markdown_source="${2}"
