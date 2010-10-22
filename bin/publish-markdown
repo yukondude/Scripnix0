@@ -159,14 +159,13 @@ rm --force "${markdown_work}"
 rm --force "${scratch_in}"
 rm --force "${scratch_out}"
 
-wkhtmltopdf_exists=$(which wkhtmltopdf)
-
-if [[ -z "${wkhtmltopdf_exists}" ]] ; then
-    echo_err "Wkhtmltopdf converter is not installed. Only HTML has been generated."
+if [[ ! -x "${HTML_TO_PDF_COMMAND}" ]] ; then
+    echo_err "HTML to PDF converter is not available at ${HTML_TO_PDF_COMMAND}."
+    echo_err "Only HTML has been generated."
     exit 0
 fi
 
 # Convert generated HTML to PDF. The eval is needed to deal with quotes that
 # might appear in wkhtmltopdf_switches.
 wkhtmltopdf_switches=$(collect_switches "${style_dir}"/wkhtmltopdf.conf)
-eval "wkhtmltopdf ${wkhtmltopdf_switches} \"${publish_dir}/${markdown_name}${suffix}.html\" \"${publish_dir}/${markdown_name}${suffix}.pdf\""
+eval "${HTML_TO_PDF_COMMAND} ${wkhtmltopdf_switches} \"${publish_dir}/${markdown_name}${suffix}.html\" \"${publish_dir}/${markdown_name}${suffix}.pdf\""

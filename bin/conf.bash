@@ -24,6 +24,9 @@ FIND_SVN_PATH_EXCLUDE='-path /dev -prune'
 HTML_TO_MARKDOWN_COMMAND='/usr/bin/html2text.py'
 MARKDOWN_TO_HTML_COMMAND='/usr/bin/markdown'
 
+# Paths to HTML/PDF conversion tools.
+HTML_TO_PDF_COMMAND='/usr/bin/wkhtmltopdf'
+
 # Default NTP server for ntpdate command.
 NTPDATE_SERVER='time.nrc.ca'
 
