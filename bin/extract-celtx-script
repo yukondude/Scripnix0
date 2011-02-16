@@ -29,7 +29,7 @@ while [ -n "${1}" ] ; do
     # to the current directory, using the archive name with an appended .html.
     extract_dir=$(mktemp --directory)
     unzip -d "${extract_dir}" -q "${celtx_archive}"
-    /bin/cp --force "${extract_dir}/"script-*.html "./${celtx_archive}.html"
+    /bin/cp --force "${extract_dir}/"script-*.html "${celtx_archive}.html"
     /bin/rm --force --recursive "${extract_dir}"
     shift
 done
