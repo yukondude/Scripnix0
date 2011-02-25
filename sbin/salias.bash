@@ -11,6 +11,7 @@ alias apt-up='aptitude update && aptitude -Pr upgrade'
 alias ift='iftop -nNPB'
 alias ipt='iptables -nvL'
 alias nst='netstat -auntp'
+alias rkup='rkhunter --propupd'
 
 # Necessary to enable aliases in shell scripts.
 shopt -s expand_aliases
