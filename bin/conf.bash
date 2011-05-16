@@ -7,6 +7,9 @@
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
+# Current Operating System.
+OS=$(uname -s | tr '[A-Z]' '[a-z]')
+
 # Single tab character. Annoyingly necessary at times.
 TAB=$(echo -en "\t")
 
