@@ -8,7 +8,7 @@
 # This script is released into the Public Domain.
 
 # Current Operating System.
-OS=$(uname -s | tr '[A-Z]' '[a-z]')
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 # Single tab character. Annoyingly necessary at times.
 TAB=$(echo -en "\t")
