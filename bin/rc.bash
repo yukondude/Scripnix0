@@ -12,7 +12,7 @@ source /usr/local/bin/bin.bash
 set -o ignoreeof
 
 # Colourful prompt.
-if [[ $(id --user) -eq 0 ]]; then
+if [[ $(id -u) -eq 0 ]]; then
     user_colour='\[\033[01;31m\]'
     user_prompt='#'
 else
@@ -20,11 +20,11 @@ else
     user_prompt='\$'
 fi
 
-host_name=$(hostname)
+host_name=$(hostname -s)
 
 # Capitalize the host name for remote connections.
-if is-remote-cnx; then
-    host_name=$(hostname | tr '[:lower:]' '[:upper:]')
+if [[ ${OS} != 'darwin' && is-remote-cnx ]]; then
+    host_name=$(hostname -s | tr '[:lower:]' '[:upper:]')
 fi
 
 dir_colour='\[\033[01;34m\]'
