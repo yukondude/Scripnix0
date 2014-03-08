@@ -59,7 +59,7 @@ chmod a=rw,g=r,o= "${sbin_config_file}"
 
 # Create the systemwide archive script exclusion file and path directory.
 if [[ ! -f "${archive_exclusion_file}" ]] ; then
-    echo "/var/archive/" >"${archive_exclusion_file}"
+    echo "/var/archive" >"${archive_exclusion_file}"
 fi
 
 chmod a=rw,g=r,o= "${archive_exclusion_file}"
