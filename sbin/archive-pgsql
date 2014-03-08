@@ -18,7 +18,7 @@ tmp_dir=$(mktemp -dt 'archive-XXXXXXXX')
 chmod go= "${tmp_dir}"
 
 # Dump each database separately. 
-for database in $(psql --list | awk '{print $1}' | egrep --invert-match '^(List|Name|--|template|\(|$)') ; do
+for database in $(psql --list | awk '{print $1}' | egrep --invert-match '^(List|Name|--|template|\||\(| )' | egrep --invert-match '^$') ; do
     pg_dump "${database}" | gzip > "${tmp_dir}/${database}.sql.gz"
 done
 
