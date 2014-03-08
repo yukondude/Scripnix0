@@ -20,6 +20,11 @@ chmod go= "${tmp_dir}"
 # using the mysqldump --all-databases option.
 for database in $(find "${MYSQL_DB_DIR}/" -maxdepth 1 -mindepth 1 -type d -print) ; do
     database=$(basename "${database}")
+
+    if [[ "${database}" == "performance_schema" ]] ; then
+        continue
+    fi
+
     mysqldump --opt --events "${database}" | gzip > "${tmp_dir}/${database}.sql.gz"
 done
 
