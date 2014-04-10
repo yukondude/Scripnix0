@@ -21,12 +21,12 @@ if [[ "${OS}" == 'darwin' ]]; then
 	
 	alias nst='netstat -an -f inet'
 else
-	alias l='ls --color=tty'
-	alias ls='ls --color=tty'
-	alias ll='ls -l --color=tty --time-style=long-iso'
-	alias la='ls -l --almost-all --color=tty --time-style=long-iso'
-	alias lh='ls -l --human-readable --color=tty --time-style=long-iso'
-	alias lm='ls -l --block-size=1024K --color=tty --time-style=long-iso'
+	alias l='ls -v --color=tty'
+	alias ls='ls -v --color=tty'
+	alias ll='ls -lv --color=tty --time-style=long-iso'
+	alias la='ls -lv --almost-all --color=tty --time-style=long-iso'
+	alias lh='ls -lv --human-readable --color=tty --time-style=long-iso'
+	alias lm='ls -lv --block-size=1024K --color=tty --time-style=long-iso'
 	alias lt='ls -lt --color=tty --time-style=long-iso'
 	alias lrt='ls -lrt --color=tty --time-style=long-iso'
 
