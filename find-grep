@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Search through the file contents in the specified directory (or the current
 # directory if not given), and below, for lines that match the given regular

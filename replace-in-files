@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Execute the given sed-compatible (extended regexp syntax) search and replace
 # operation on all of the files specified. If a change is made, a dated copy of

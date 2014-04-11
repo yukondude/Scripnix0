@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Count valid (HTTP 200 OK) web hits by domain name. Optionally filter log
 # entries with a regular expression and, if given, discard entries that match

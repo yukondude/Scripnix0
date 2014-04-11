@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Generate descriptions of all Scripnix scripts formatted for Google Code wiki
 # pages.

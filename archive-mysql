@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Archive each MySQL database under the $ARCHIVE_MYSQL_DIR directory separately
 # into a compressed tarball in the $ARCHIVE_DIR directory.

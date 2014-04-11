@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Restart the NTP time service, forcing a time synchronization while the
 # service is stopped.

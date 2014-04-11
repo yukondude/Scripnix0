@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Truncate a fully qualified domain name by removing the host name part. Only
 # the first column of the input is truncated.

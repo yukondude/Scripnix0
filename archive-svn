@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Archive a dump of each Subversion respository under the $SVN_REPO_DIR
 # directory into a compressed tarball in the $ARCHIVE_DIR directory.

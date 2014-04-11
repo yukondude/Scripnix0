@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Find a unique name within the given directory for the specified file,
 # appending a hyphen and number, as necessary. Insert the appendix before

@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Convert the given Markdown text file into print-ready HTML and PDF files using
 # the supporting files from the specified style, or the default style if

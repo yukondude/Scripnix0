@@ -1,4 +1,3 @@
-# $Id$
 #
 # Common utility script definitions. All /usr/local/bin scripts should source
 # this file.

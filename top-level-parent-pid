@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Look up the top-level parent Process ID (PID) for the given PID. If none is
 # specified, use the current PID as the starting point.

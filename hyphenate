@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Translate the given filenames (via stdin) into their equivalent,
 # filesystem-safe, hyphenated versions.

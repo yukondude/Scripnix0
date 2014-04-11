@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Detects whether a network host is reachable via ICMP ping. Uses the local
 # network gateway unless a specific host's IP is specified. Return code will be

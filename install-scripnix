@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # "Install" Scripnix by setting up the systemwide configuration directory and
 # files. Permissions are as restrictive as possible. The script can be re-run

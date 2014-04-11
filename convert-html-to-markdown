@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Convert the specified HTML files into Markdown text-format equivalents in the
 # current working directory. The file extension will be .md.txt.

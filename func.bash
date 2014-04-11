@@ -1,4 +1,3 @@
-# $Id$
 #
 # Common function definitions.
 #

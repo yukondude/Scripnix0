@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # "Backup" the named file or files by making copies of them using each file's
 # last modified date (yyyymmdd) as the extension.

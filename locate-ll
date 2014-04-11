@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Locate matching files and display in coloured long-list format.
 #

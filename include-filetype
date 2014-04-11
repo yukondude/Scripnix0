@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Filter out any files from stdin that don't match one of the given filetypes:
 # file, directory, link (symbolic), pipe, socket, character (device), and block

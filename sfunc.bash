@@ -1,4 +1,3 @@
-# $Id$
 #
 # Root-user function definitions.
 #

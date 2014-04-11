@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Decrypt the previously encrypted (with encrypt-for-dvd) files in the the
 # source directory that begin with the given archive name and place the results

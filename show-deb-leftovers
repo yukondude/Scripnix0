@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Display orphaned packages and unneeded package files from Debian-like
 # distributions.

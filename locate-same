@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Locate matching files and display identical files grouped together.
 #

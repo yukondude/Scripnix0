@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Synchronize all mirrored Subversion repositories on the local machine. The
 # script assumes that all such repositories have a suffix of "mirror".

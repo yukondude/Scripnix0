@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Display a consolidated table of all scheduled cron jobs.
 #

@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Archive each PostgreSQL database seperately into a compressed tarball in the
 # $ARCHIVE_DIR directory. The user running this script must be a PostgreSQL

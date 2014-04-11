@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Create an empty Subversion repository with default security settings. An
 # account that will own the repository files may also be specified (default is

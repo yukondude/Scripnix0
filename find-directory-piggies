@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Find all lowest-level directories larger than the given size (MB), or 100MB if
 # not specified.

@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Repeat a simple command every N seconds.
 #

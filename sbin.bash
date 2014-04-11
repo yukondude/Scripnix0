@@ -1,4 +1,3 @@
-# $Id$
 #
 # Root-user utility script definitions. All /usr/local/sbin scripts should
 # source this file.

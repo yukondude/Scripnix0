@@ -1,4 +1,3 @@
-# $Id$
 #
 # Interactive shell configuration. ~/.bashrc should source this file.
 #

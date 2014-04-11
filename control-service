@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Execute the given rc init script with the given action.
 #

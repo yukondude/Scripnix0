@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Remove all but a given number of files that match the provided filespec
 # (in quotes if wildcards are specified), so that the remaining files have the

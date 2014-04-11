@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Count lines of PHP-related code in the current or given directory, excluding
 # blank lines and single-line comments.

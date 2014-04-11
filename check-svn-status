@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Quickly report the status of all known Subversion projects.
 #

@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Encrypt the contents of the given source directory into large date-stamped
 # files in the destination directory that are suitable for burning to a 4.7GiB

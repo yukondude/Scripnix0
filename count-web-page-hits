@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Count hits to web pages. Optionally filter log entries with a regular
 # expression and, if given, discard entries that match a second regular

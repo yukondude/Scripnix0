@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Count invalid (HTTP 40x) web requests.
 #

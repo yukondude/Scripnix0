@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Find all files larger than the given size (MB), or 100MB if not specified.
 #

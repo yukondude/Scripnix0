@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Export the given Subversion project into a gzipped tarball in the current
 # directory, named for the project, version, and Subversion revision number.

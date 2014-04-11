@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Display all hard and soft links to the given file.
 #

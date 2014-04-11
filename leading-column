@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Extract a unique list of the first column of the given input. Optionally, use
 # the specified delimiter instead of space.

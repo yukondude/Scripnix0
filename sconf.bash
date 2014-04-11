@@ -1,4 +1,3 @@
-# $Id$
 #
 # Root-user configuration variables. Do not edit these. Instead, override
 # values as needed in /etc/scripnix/sconf.bash

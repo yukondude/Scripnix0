@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Run the given command at most once per day, provided the specified condition
 # is true (returns an exit code of 0).

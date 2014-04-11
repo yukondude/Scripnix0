@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Find all files changed on the server within the last hour.
 #

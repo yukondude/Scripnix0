@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 #
 # Archive all directories symlinked under $ARCHIVE_PATHS to the $ARCHIVE_DIR
 # directory using the name of the symlink as the compressed tarball's filename.
