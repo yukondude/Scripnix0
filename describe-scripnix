@@ -15,19 +15,23 @@ check_arg_count ${0} ${#} 0 0 '' ${1}
 
 today=$(date +%F)
 
-echo -e "#summary Descriptions of the scripts making up the Scripnix project. Phew. Try saying that five times fast.\n"
-echo -e "= Script Descriptions =\n"
+echo -e "# Scripnix\n"
+echo -e "Summary descriptions of the scripts making up the Scripnix project. Phew. Try saying that five times fast.\n"
+echo -e "## Script Descriptions\n"
 echo -e "The following was generated on ${today} by the \`describe-scripnix\` script.\n"
 
+cd "${scriproot}"
+
 while read script ; do
-    name=$(echo "${script}" | cut --fields 4,5 --delimiter '/') 
+    name=$(echo "${script}" | cut --fields 2 --delimiter '/') 
     desc=$(${script} --help 2>&1)
 
-    if [[ -z "${desc}" ]] ; then
-        desc=$(sed --quiet --regexp-extended --expression '/^#$/,/^#$/p' "${script}" | sed '/^#$/d' | cut --characters 3-)
+    if [[ "${desc}" != Usage:* ]] ; then
+        desc=$(sed --quiet --regexp-extended --expression '/^#$/,/^#$/p' "${script}" | sed --expression '/^#$/d' | cut --characters 3-)
         bname=$(basename "${script}")
-        desc="Usage: ${bname}\n\n${desc}"
+        desc=$(echo -e "Usage: ${bname}\n\n${desc}")
     fi
 
-    echo -e "== ${name} ==\n{{{\n${desc}\n}}}\n"
-done < <(find /usr/local/bin/ /usr/local/sbin/ -type f -executable -exec egrep --files-with-matches Scripnix {} \; | sort)
+    desc=$(echo "$desc" | sed --expression 's/ *$//' | sed --regexp-extended --expression 's/Usage: (.*)$/Usage: \`\1\`/')
+    echo -e "### ${name}\n\n${desc}\n"
+done < <(find . -maxdepth 1 -type f -executable -exec egrep --files-with-matches Scripnix {} \; | sort)
