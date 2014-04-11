@@ -3,9 +3,10 @@
 # Root-user configuration variables. Do not edit these. Instead, override
 # values as needed in /etc/scripnix/sconf.bash
 #
-# This file is a part of Scripnix <http://scripnix.googlecode.com/>.
-# Written in 2007 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
-# This script is released into the Public Domain.
+# This file is a part of Scripnix <https://github.com/yukondude/Scripnix/>.
+# Written in 2007 by Dave Rogers <yukondude.com>
+# This is free and unencumbered software released into the public domain.
+# Refer to the LICENCE file for the not-so-fine print.
 
 ARCHIVE_DIR='/var/archive'
 ARCHIVE_EXCLUSIONS='/etc/scripnix/archive-exclusions'

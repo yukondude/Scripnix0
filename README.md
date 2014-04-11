@@ -6,7 +6,7 @@ Useful bash shell scripts for *NIX.
 Written between 2007 and 2014 by Dave Rogers <yukondude.com>.
 
 This is free and unencumbered software released into the public domain.
-See the LICENCE file for details.
+Refer to the LICENCE file for the not-so-fine print.
 
 Reporting Bugs
 --------------
