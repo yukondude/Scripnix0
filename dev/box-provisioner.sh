@@ -19,10 +19,6 @@ echo "Create symlink to /vagrant project directory" | tee -a ${log}
 cd ${home}
 ln --symbolic ${project} Scripnix
 
-echo "Add project dev/ and bin/ directories to path" | tee -a ${log}
-cd ${home}
-echo "PATH=\"${project}/dev:${project}/bin:${PATH}\"" >>.bashrc
-
 echo "We're on Yukon Time." | tee -a ${log}
 echo "America/Whitehorse" >/etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata >>${log} 2>&1
