@@ -6,7 +6,9 @@
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
-source /usr/local/bin/bin.bash
+scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+source $scriproot/bin.bash
 
 # Don't logout after Ctrl+D.
 set -o ignoreeof
@@ -27,6 +29,6 @@ if [[ ${OS} != 'darwin' && is-remote-cnx ]]; then
     host_name=$(hostname -s | tr '[:lower:]' '[:upper:]')
 fi
 
-dir_colour='\[\033[01;34m\]'
 base_colour='\[\033[00m\]'
-export PS1="${user_colour}\u${dir_colour}@${host_name} \w ${user_colour}${user_prompt}${base_colour} "
+alt_colour='\[\033[01;34m\]'
+export PS1="${user_colour}\u${alt_colour}@${host_name} ${user_colour}\w${alt_colour} \D{%H:%M:%S} ${user_colour}${user_prompt}${base_colour} "
