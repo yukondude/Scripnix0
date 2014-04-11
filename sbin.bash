@@ -7,17 +7,17 @@
 # Written in 2007 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
-source /usr/local/bin/bin.bash
+scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source $scriproot/bin.bash
 
-sbin_dir='/usr/local/sbin'
 system_sconf_dir='/etc/scripnix'
 sconf_file='sconf.bash'
 
 # Set configuration variables, overriding as necessary.
-source "${sbin_dir}/${sconf_file}"
+source "${scriproot}/${sconf_file}"
 [[ -r "${system_sconf_dir}/${sconf_file}" ]] && source "${system_sconf_dir}/${sconf_file}"
 
-source "${sbin_dir}/sfunc.bash"
-source "${sbin_dir}/salias.bash"
+source "${scriproot}/sfunc.bash"
+source "${scriproot}/salias.bash"
 
 require_root

@@ -7,7 +7,8 @@
 # Written in 2008 by Dave Rogers <yukondude-strudel-gmail-fullstop-com>.
 # This script is released into the Public Domain.
 
-source /usr/local/bin/bin.bash
+scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source $scriproot/bin.bash
 
 check_arg_count ${0} ${#} 1 1 '<regexp>' ${1}
 
