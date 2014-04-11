@@ -17,7 +17,7 @@ apt-get --yes update >>${log} 2>&1
 
 echo "Create symlink to /vagrant project directory" | tee -a ${log}
 cd ${home}
-ln --symbolic ${project} FeedGuild
+ln --symbolic ${project} Scripnix
 
 echo "Add project dev/ and bin/ directories to path" | tee -a ${log}
 cd ${home}
