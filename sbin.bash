@@ -6,7 +6,7 @@
 # Refer to the LICENCE file for the not-so-fine print.
 
 scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source $scriproot/bin.bash
+source "${scriproot}/bin.bash"
 
 system_sconf_dir='/etc/scripnix'
 sconf_file='sconf.bash'

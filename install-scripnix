@@ -10,7 +10,7 @@
 # Refer to the LICENCE file for the not-so-fine print.
 
 scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source $scriproot/sbin.bash
+source "${scriproot}/sbin.bash"
 
 config_path=/etc/scripnix
 config_readme_file="${config_path}/README"

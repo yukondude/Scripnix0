@@ -7,7 +7,7 @@
 
 scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source $scriproot/bin.bash
+source "${scriproot}/bin.bash"
 
 # Don't logout after Ctrl+D.
 set -o ignoreeof

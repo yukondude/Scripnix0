@@ -8,7 +8,7 @@
 # Refer to the LICENCE file for the not-so-fine print.
 
 scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source $scriproot/sbin.bash
+source "${scriproot}/sbin.bash"
 
 check_arg_count ${0} ${#} 1 2 '<rc init script> <action>' ${1}
 

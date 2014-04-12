@@ -12,7 +12,7 @@
 # Refer to the LICENCE file for the not-so-fine print.
 
 scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source $scriproot/bin.bash
+source "${scriproot}/bin.bash"
 
 check_arg_count ${0} ${#} 3 3 '<source-directory-path> <destination-directory> <archive-name>' ${1}
 

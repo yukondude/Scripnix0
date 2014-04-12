@@ -7,8 +7,8 @@
 # Refer to the LICENCE file for the not-so-fine print.
 
 scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source $scriproot/rc.bash
-source $scriproot/sconf.bash
+source "${scriproot}/rc.bash"
+source "${scriproot}/sconf.bash"
 
 # Override sconf.bash configuration variables as needed in suser-conf.bash.
 [ -r "${scriproot}/suser-conf.bash" ] && source "${scriproot}/suser-conf.bash"
