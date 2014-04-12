@@ -33,7 +33,7 @@ chmod a=rwx,g=rxs,o=rx "${config_path}"
 
 if [[ ! -f "${config_readme_file}" ]] ; then
     echo "Systemwide configuration settings for the Scripnix project." >"${config_readme_file}"
-    echo "[http://code.google.com/p/scripnix/]" >>"${config_readme_file}"
+    echo "[https://github.com/yukondude/Scripnix]" >>"${config_readme_file}"
 fi
 
 chmod ago=r "${config_readme_file}"
@@ -88,9 +88,9 @@ fi
 chmod ag=r,o= "${archive_paths_readme_file}"
 
 # Create a more familiar name for the control-service script.
-if [[ ! -h "${sbin_dir}/service" ]] ; then
-    cd "${sbin_dir}"
-    ln -s "${sbin_dir}/control-service" service
+if [[ ! -h "${scriproot}/service" ]] ; then
+    cd "${scriproot}"
+    ln -s "${scriproot}/control-service" service
 fi
 
 # Create the default publishing style files.
