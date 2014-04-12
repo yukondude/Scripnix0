@@ -1,5 +1,4 @@
-# Common utility script definitions. All /usr/local/bin scripts should source
-# this file.
+# Common utility script definitions. All scripts should source this file.
 #
 # This file is a part of Scripnix <https://github.com/yukondude/Scripnix/>.
 # Written in 2007 by Dave Rogers <yukondude.com>

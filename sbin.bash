@@ -1,5 +1,4 @@
-# Root-user utility script definitions. All /usr/local/sbin scripts should
-# source this file.
+# Root-user utility script definitions. All root-user scripts source this file.
 #
 # This file is a part of Scripnix <https://github.com/yukondude/Scripnix/>.
 # Written in 2007 by Dave Rogers <yukondude.com>

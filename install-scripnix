@@ -40,7 +40,7 @@ chmod ago=r "${config_readme_file}"
 
 # Create the systemwide configuration override files with sample settings.
 if [[ ! -f "${bin_config_file}" ]] ; then
-    echo "# Systemwide user account configuration overrides for /usr/local/bin/conf.bash." >"${bin_config_file}"
+    echo "# Systemwide user account configuration overrides for conf.bash." >"${bin_config_file}"
     echo "# Account-specific settings can be made in ~/.scripnix/conf.bash." >>"${bin_config_file}"
     echo 'FIND_PATH_EXCLUDE="${FIND_PATH_EXCLUDE} -or ( -path /media -or -path /mnt ) -prune"' >>"${bin_config_file}"
 
@@ -49,7 +49,7 @@ fi
 chmod a=rw,go=r "${bin_config_file}"
 
 if [[ ! -f "${sbin_config_file}" ]] ; then
-    echo "# Systemwide root account configuration overrides for /usr/local/sbin/sconf.bash." >"${sbin_config_file}"
+    echo "# Systemwide root account configuration overrides for sconf.bash." >"${sbin_config_file}"
     echo "MYSQL_DUMP_FILE='${host}-mysql-dump.tar'" >>"${sbin_config_file}"
     echo "PGSQL_DUMP_FILE='${host}-pgsql-dump.tar'" >>"${sbin_config_file}"
     echo "SVN_REPOSITORIES_DUMP_FILE='${host}-svn-dump.tar'" >>"${sbin_config_file}"

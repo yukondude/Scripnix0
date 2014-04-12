@@ -6,13 +6,12 @@
 # This is free and unencumbered software released into the public domain.
 # Refer to the LICENCE file for the not-so-fine print.
 
-source /usr/local/bin/rc.bash
-
-sbin_dir='/usr/local/sbin'
-source "${sbin_dir}/sconf.bash"
+scriproot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source $scriproot/rc.bash
+source $scriproot/sconf.bash
 
 # Override sconf.bash configuration variables as needed in suser-conf.bash.
-[ -r "${sbin_dir}/suser-conf.bash" ] && source "${sbin_dir}/suser-conf.bash"
+[ -r "${scriproot}/suser-conf.bash" ] && source "${scriproot}/suser-conf.bash"
 
-source "${sbin_dir}/sfunc.bash"
-source "${sbin_dir}/salias.bash"
+source "${scriproot}/sfunc.bash"
+source "${scriproot}/salias.bash"
