@@ -1,4 +1,3 @@
-#
 # Configuration variables. Do not edit these. Instead, override values as needed
 # in /etc/scripnix/conf.bash or ~/.scripnix/conf.bash
 #

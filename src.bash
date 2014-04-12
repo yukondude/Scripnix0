@@ -1,4 +1,3 @@
-#
 # Root-user interactive shell configuration. ~/.bashrc should source this file.
 # Overrides or extends any /bin/rc.bash definitions.
 #

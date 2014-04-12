@@ -1,4 +1,3 @@
-#
 # Common function definitions.
 #
 # This file is a part of Scripnix <https://github.com/yukondude/Scripnix/>.

@@ -1,4 +1,3 @@
-#
 # Root-user command alias definitions. Overrides or extends any /bin/alias.bash
 # definitions.
 #
