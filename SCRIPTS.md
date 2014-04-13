@@ -232,19 +232,6 @@ Usage: `locate-same <regexp>`
 
 Locate matching files and display identical files grouped together.
 
-### package-svn-project
-
-Usage: `package-svn-project <project> <version> <svn-url>`
-
-Export the given Subversion project into a gzipped tarball in the current
-directory, named for the project, version, and Subversion revision number.
-
-For example, to package version 1.0 of the Scripnix project into a file
-named scripnix-1.0.XX.tgz ("XX" will be replaced with the Subversion revision
-number):
-
-package-svn-project scripnix 1.0 https://github.com/yukondude/Scripnix/svn/trunk/
-
 ### publish-markdown
 
 Usage: `publish-markdown [<style>] <Markdown-text-file>`
