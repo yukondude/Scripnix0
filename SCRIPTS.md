@@ -36,7 +36,7 @@ directory into a compressed tarball in the $ARCHIVE_DIR directory.
 
 ### backup-file
 
-Usage: `backup-file &lt;file&gt;[...]`
+Usage: `backup-file <file>[...]`
 
 "Backup" the named file or files by making copies of them using each file's
 last modified date (yyyymmdd) as the extension.
@@ -56,36 +56,36 @@ distributions.
 
 ### command-for-pid
 
-Usage: `command-for-pid &lt;pid&gt;`
+Usage: `command-for-pid <pid>`
 
 Look up the command line for the given Process ID (PID).
 
 ### control-service
 
-Usage: `control-service &lt;rc init script&gt; &lt;action&gt;`
+Usage: `control-service <rc init script> <action>`
 
 Execute the given rc init script with the given action.
 
 ### convert-html-to-markdown
 
-Usage: `convert-html-to-markdown &lt;html-file&gt;[...]`
+Usage: `convert-html-to-markdown <html-file>[...]`
 
 Convert the specified HTML files into Markdown text-format equivalents in the
 current working directory. The file extension will be .md.txt.
 
 Requires the html2text.py Python script by Aaron Swartz to convert from HTML
-to Markdown text &lt;http://www.aaronsw.com/2002/html2text/&gt;.
+to Markdown text `<http://www.aaronsw.com/2002/html2text/>`.
 
 ### count-php-loc
 
-Usage: `count-php-loc [&lt;directory&gt;]`
+Usage: `count-php-loc [<directory>]`
 
 Count lines of PHP-related code in the current or given directory, excluding
 blank lines and single-line comments.
 
 ### count-web-hits
 
-Usage: `count-web-hits [&lt;regexp&gt;] [&lt;!regexp&gt;]`
+Usage: `count-web-hits [<regexp>] [<!regexp>]`
 
 Count valid (HTTP 200 OK) web hits by domain name. Optionally filter log
 entries with a regular expression and, if given, discard entries that match
@@ -93,7 +93,7 @@ a second regular expression.
 
 ### count-web-page-hits
 
-Usage: `count-web-page-hits [&lt;regexp&gt;] [&lt;!regexp&gt;]`
+Usage: `count-web-page-hits [<regexp>] [<!regexp>]`
 
 Count hits to web pages. Optionally filter log entries with a regular
 expression and, if given, discard entries that match a second regular
@@ -107,7 +107,7 @@ Count invalid (HTTP 40x) web requests.
 
 ### create-svn-repository
 
-Usage: `create-svn-repository &lt;repository-name&gt; [&lt;svnserve-account&gt;]`
+Usage: `create-svn-repository <repository-name> [<svnserve-account>]`
 
 Create an empty Subversion repository with default security settings. An
 account that will own the repository files may also be specified (default is
@@ -118,7 +118,7 @@ file to only the svnserve account that you are using (read-only).
 
 ### decrypt-from-dvd
 
-Usage: `decrypt-from-dvd &lt;source-directory&gt; &lt;destination-directory&gt; &lt;archive-name&gt;`
+Usage: `decrypt-from-dvd <source-directory> <destination-directory> <archive-name>`
 
 Decrypt the previously encrypted (with encrypt-for-dvd) files in the the
 source directory that begin with the given archive name and place the results
@@ -134,7 +134,7 @@ pages.
 
 ### encrypt-for-dvd
 
-Usage: `encrypt-for-dvd &lt;source-directory-path&gt; &lt;destination-directory&gt; &lt;archive-name&gt;`
+Usage: `encrypt-for-dvd <source-directory-path> <destination-directory> <archive-name>`
 
 Encrypt the contents of the given source directory into large date-stamped
 files in the destination directory that are suitable for burning to a 4.7GiB
@@ -144,14 +144,14 @@ Use the decrypt-from-dvd script to reverse the process.
 
 ### find-directory-piggies
 
-Usage: `find-directory-piggies [&lt;minimum-directory-size-in-mb&gt;]`
+Usage: `find-directory-piggies [<minimum-directory-size-in-mb>]`
 
 Find all lowest-level directories larger than the given size (MB), or 100MB if
 not specified.
 
 ### find-grep
 
-Usage: `find-grep [&lt;directory&gt;] &lt;regexp&gt;`
+Usage: `find-grep [<directory>] <regexp>`
 
 Search through the file contents in the specified directory (or the current
 directory if not given), and below, for lines that match the given regular
@@ -159,13 +159,13 @@ expression.
 
 ### find-links
 
-Usage: `find-links &lt;file&gt;`
+Usage: `find-links <file>`
 
 Display all hard and soft links to the given file.
 
 ### find-piggies
 
-Usage: `find-piggies [&lt;minimum-file-size-in-mb&gt;]`
+Usage: `find-piggies [<minimum-file-size-in-mb>]`
 
 Find all files larger than the given size (MB), or 100MB if not specified.
 
@@ -184,7 +184,7 @@ filesystem-safe, hyphenated versions.
 
 ### include-filetype
 
-Usage: `include-filetype &lt;filetype&gt;[...]`
+Usage: `include-filetype <filetype>[...]`
 
 Filter out any files from stdin that don't match one of the given filetypes:
 file, directory, link (symbolic), pipe, socket, character (device), and block
@@ -200,7 +200,7 @@ without altering existing files or directories, but permissions will be reset.
 
 ### is-network-up
 
-Usage: `is-network-up [&lt;host&gt;]`
+Usage: `is-network-up [<host>]`
 
 Detects whether a network host is reachable via ICMP ping. Uses the local
 network gateway unless a specific host's IP is specified. Return code will be
@@ -215,26 +215,26 @@ zero if it is.
 
 ### leading-column
 
-Usage: `leading-column [&lt;delimiter&gt;]`
+Usage: `leading-column [<delimiter>]`
 
 Extract a unique list of the first column of the given input. Optionally, use
 the specified delimiter instead of space.
 
 ### locate-ll
 
-Usage: `locate-ll &lt;regexp&gt;`
+Usage: `locate-ll <regexp>`
 
 Locate matching files and display in coloured long-list format.
 
 ### locate-same
 
-Usage: `locate-same &lt;regexp&gt;`
+Usage: `locate-same <regexp>`
 
 Locate matching files and display identical files grouped together.
 
 ### package-svn-project
 
-Usage: `package-svn-project &lt;project&gt; &lt;version&gt; &lt;svn-url&gt;`
+Usage: `package-svn-project <project> <version> <svn-url>`
 
 Export the given Subversion project into a gzipped tarball in the current
 directory, named for the project, version, and Subversion revision number.
@@ -247,7 +247,7 @@ package-svn-project scripnix 1.0 https://github.com/yukondude/Scripnix/svn/trunk
 
 ### publish-markdown
 
-Usage: `publish-markdown [&lt;style&gt;] &lt;Markdown-text-file&gt;`
+Usage: `publish-markdown [<style>] <Markdown-text-file>`
 
 Convert the given Markdown text file into print-ready HTML and PDF files using
 the supporting files from the specified style, or the default style if
@@ -261,12 +261,12 @@ style will be used as the default.
 
 A style directory may contain some or all of the following files:
 
-* header-prefix.html: The initial DOCTYPE, &lt;html&gt;, and &lt;head&gt; elements, ending
-  an opening &lt;style&gt; tag.
+* header-prefix.html: The initial DOCTYPE, `<html>`, and `<head>` elements, ending
+  an opening `<style>` tag.
 * style*.css: One or more CSS files, that are inserted into the HTML in order.
-* header-suffix.html: Begins with the closing &lt;/style&gt; tag and includes any
-  other &lt;head&gt; elements before closing &lt;/head&gt; and opening &lt;body&gt;.
-* footer.html: Includes any final elements before closing &lt;/body&gt; and &lt;/html&gt;.
+* header-suffix.html: Begins with the closing `</style>` tag and includes any
+  other `<head>` elements before closing `</head>` and opening `<body>`.
+* footer.html: Includes any final elements before closing `</body>` and `</html>`.
 * pre-markdown*.awk: One or more AWK files to process or filter the raw
   Markdown text before it is inserted into the HTML, run in order.
 * post-markdown*.awk: One or more AWK files to process or filter the generated
@@ -282,13 +282,13 @@ multiple CSS files and AWK filters are permitted, a style may borrow just a
 selection of another style's files, and even rearrange their order by
 appropriately naming the links.
 
-The optional placeholders @@@TITLE@@@ and @@@YEAR@@@ will be replaced with the
-contents of the document's &lt;h1&gt; element, or the filename if not available, and
+The optional placeholders `@@@TITLE@@@` and `@@@YEAR@@@` will be replaced with the
+contents of the document's `<h1>` element, or the filename if not available, and
 the current 4-digit year, respectively.
 
 ### remove-except
 
-Usage: `remove-except &lt;number-to-keep&gt; [&lt;filespec&gt;]`
+Usage: `remove-except <number-to-keep> [<filespec>]`
 
 Remove all but a given number of files that match the provided filespec
 (in quotes if wildcards are specified), so that the remaining files have the
@@ -297,7 +297,7 @@ operation on all files in the current directory.
 
 ### remove-old
 
-Usage: `remove-old &lt;days&gt; &lt;directory&gt; &lt;filespec&gt;`
+Usage: `remove-old <days> <directory> <filespec>`
 
 Remove files under the given directory and matching the supplied filespec
 (in quotes if wildcards are specified) that are at least the given
@@ -320,13 +320,13 @@ this script runs) then you should have just 2 remaining.
 
 ### repeat
 
-Usage: `repeat &lt;delay&gt; &lt;command...&gt;`
+Usage: `repeat <delay> <command...>`
 
 Repeat a simple command every N seconds.
 
 ### replace-in-files
 
-Usage: `replace-in-files &lt;regexp&gt; &lt;file&gt;[...]`
+Usage: `replace-in-files <regexp> <file>[...]`
 
 Execute the given sed-compatible (extended regexp syntax) search and replace
 operation on all of the files specified. If a change is made, a dated copy of
@@ -341,7 +341,7 @@ service is stopped.
 
 ### run-once-if
 
-Usage: `run-once-if &lt;condition&gt; &lt;command&gt;`
+Usage: `run-once-if <condition> <command>`
 
 Run the given command at most once per day, provided the specified condition
 is true (returns an exit code of 0).
@@ -376,7 +376,7 @@ script assumes that all such repositories have a suffix of "mirror".
 
 ### top-level-parent-pid
 
-Usage: `top-level-parent-pid [&lt;pid&gt;]`
+Usage: `top-level-parent-pid [<pid>]`
 
 Look up the top-level parent Process ID (PID) for the given PID. If none is
 specified, use the current PID as the starting point.
@@ -390,7 +390,7 @@ the first column of the input is truncated.
 
 ### unique-name
 
-Usage: `unique-name &lt;directory&gt; &lt;filename&gt; [&lt;extension&gt;]`
+Usage: `unique-name <directory> <filename> [<extension>]`
 
 Find a unique name within the given directory for the specified file,
 appending a hyphen and number, as necessary. Insert the appendix before
