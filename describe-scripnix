@@ -15,9 +15,8 @@ check_arg_count ${0} ${#} 0 0 '' ${1}
 
 today=$(date +%F)
 
-echo -e "# Scripnix\n"
+echo -e "# Scripnix Script Descriptions\n"
 echo -e "Summary descriptions of the scripts making up the Scripnix project. Phew. Try saying that five times fast.\n"
-echo -e "## Script Descriptions\n"
 echo -e "The following was generated on ${today} by the \`describe-scripnix\` script.\n"
 
 cd "${scriproot}"
