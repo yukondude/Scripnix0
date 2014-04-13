@@ -32,5 +32,6 @@ while read script ; do
     fi
 
     desc=$(echo "$desc" | sed --expression 's/ *$//' | sed --regexp-extended --expression 's/Usage: (.*)$/Usage: \`\1\`/')
+    desc=$(echo "$desc" | sed --regexp-extended --expression 's/<([^>]+)>/\&lt;\1\&gt;/g')
     echo -e "### ${name}\n\n${desc}\n"
 done < <(find . -maxdepth 1 -type f -executable -exec egrep --files-with-matches Scripnix {} \; | sort)
