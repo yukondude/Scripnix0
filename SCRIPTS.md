@@ -1,8 +1,6 @@
-# Scripnix
+# Scripnix Script Descriptions
 
 Summary descriptions of the scripts making up the Scripnix project. Phew. Try saying that five times fast.
-
-## Script Descriptions
 
 The following was generated on 2014-04-13 by the `describe-scripnix` script.
 
