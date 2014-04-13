@@ -13,6 +13,8 @@ Contents
 --------
 
 Run the `describe-scripnix` script for an up-to-date listing of all the scripts.
+Or just read the
+[script listing on GitHub](https://github.com/yukondude/Scripnix/blob/master/SCRIPTS.md).
 
 Reporting Bugs
 --------------
