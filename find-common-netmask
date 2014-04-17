@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+#
+# Given two or more IPv4 addresses, display the netmask (and bit length) that
+# matches all of the addresses.
+#
+# This file is a part of Scripnix <https://github.com/yukondude/Scripnix/>.
+# Written in 2014 by Dave Rogers <yukondude.com>
+# This is free and unencumbered software released into the public domain.
+# Refer to the LICENCE file for the not-so-fine print.
+
+import os
+import sys
+
+
+def bits_from_quads(quads):
+    return "".join(["{:08b}".format(q) for q in quads])
+
+
+def dotted_ip_from_quads(quads):
+    return ".".join([str(q) for q in quads])
+    
+
+def find_common_netmask(ips):
+    netmask_bits = []
+    ip_count = len(ips)
+    
+    bin_ips = [bits_from_quads(ip) for ip in ips]
+    
+    for bit in range(32):
+        bits = [b[bit] for b in bin_ips]
+        
+        if bits.count(bits[0]) == ip_count:
+            netmask_bits.append(bits[0])
+        else:
+            break
+            
+    netmask = "".join(netmask_bits).ljust(32, "0")        
+    return quads_from_bits(netmask), len(netmask_bits)
+
+
+def quads_from_bits(bits):
+    return [int(bits[:8], 2), int(bits[8:16], 2), int(bits[16:24], 2), int(bits[24:], 2)]
+
+
+def quads_from_dotted_ip(ipaddr):
+    quads = [int(q) for q in ipaddr.split('.')]
+    
+    if len(quads) != 4:
+        raise ValueError
+    
+    for q in quads:
+        if not (0 <= q <= 255):
+            raise ValueError
+        
+    return quads
+
+
+if __name__ == "__main__":
+    prog_name = os.path.basename(sys.argv[0])
+    
+    if len(sys.argv) < 3:
+        sys.exit("Usage: {0} IPADDR1 IPADDR2 [IPADDR3 [...]]".format(prog_name))
+        
+    ips = []
+        
+    for arg in sys.argv[1:]:
+        try:
+            quads = quads_from_dotted_ip(arg)
+        except ValueError:
+            sys.exit("{0}: improperly specified IP address: \"{1}\". Expected dotted quad (e.g., 3.141.59.26).".format(prog_name, arg))
+        
+        ips.append(quads)
+    
+    netmask, masklen = find_common_netmask(ips)
+    sys.stdout.write("{0}/{1}\n".format(dotted_ip_from_quads(netmask), masklen))
