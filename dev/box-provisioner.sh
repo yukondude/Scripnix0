@@ -30,6 +30,12 @@ echo "# Enable Scripnix" >>.bashrc
 echo 'PATH="/vagrant:${PATH}"' >>.bashrc
 echo "source /vagrant/rc.bash" >>.bashrc
 
+cd /root
+echo >>.bashrc
+echo "# Enable Scripnix" >>.bashrc
+echo 'PATH="/vagrant:${PATH}"' >>.bashrc
+echo "source /vagrant/rc.bash" >>.bashrc
+
 echo "Install Scripnix." | tee -a ${log}
 /vagrant/install-scripnix
 
